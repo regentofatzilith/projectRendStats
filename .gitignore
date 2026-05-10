@@ -19,6 +19,7 @@ build/
 dist/
 *.egg-info/
 *.log
+distribution.zip
 
 # OS/editor files
 .DS_Store
