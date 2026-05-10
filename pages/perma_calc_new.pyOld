@@ -1,0 +1,17 @@
+"""
+UW PermaCalc (New) - Multi-page app version
+
+This wrapper integrates the core PermaCalc functionality into a multi-page Dash application.
+For standalone deployment, see deploy_render/perma_calc_new.py
+
+NOTE: This page has been disabled. The UW PermaCalc Hybrid page now serves as the primary calculator.
+"""
+
+import dash
+
+# Import all core functionality from the shared module
+from perma_calc_core import layout
+
+# Register this module as a page in the multi-page app
+# DISABLED: This page is no longer shown in the dashboard
+# dash.register_page(__name__, path="/perma-calc-new", name="UW PermaCalc (New)", order=6)

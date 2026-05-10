@@ -1,0 +1,110 @@
+{
+  "meta": {
+    "generated_at": "2025-11-14T00:00:00Z",
+    "rarities": ["Common", "Rare", "Epic", "Legendary", "Mythic", "Ancestral"],
+    "unit_conventions": {
+      "percent_points": "Value is in percentage points (e.g. 2 means 2%)",
+      "seconds": "Duration or cooldown in seconds",
+      "meters": "Distance/range in meters",
+      "multiplier": "Direct multiplicative factor (e.g. 1.25x stored as 1.25)",
+      "raw": "Unitless numeric value as given",
+      "reduction_seconds": "Negative seconds reduce cooldown"
+    },
+    "na_representation": "null"
+  },
+  "categories": [
+    {
+      "category": "cannon_submodules_attack",
+      "submodules": [
+        {"name": "Attack Speed", "unit": "raw", "rarity_values": {"Common": 0.3, "Rare": 0.5, "Epic": 0.7, "Legendary": 1, "Mythic": 3, "Ancestral": 5}},
+        {"name": "Crit Chance", "unit": "percent_points", "rarity_values": {"Common": 2, "Rare": 3, "Epic": 4, "Legendary": 6, "Mythic": 8, "Ancestral": 10}},
+        {"name": "Crit Factor", "unit": "multiplier", "rarity_values": {"Common": 2, "Rare": 4, "Epic": 6, "Legendary": 8, "Mythic": 12, "Ancestral": 15}},
+        {"name": "Attack Range", "unit": "meters", "rarity_values": {"Common": 2, "Rare": 4, "Epic": 8, "Legendary": 12, "Mythic": 20, "Ancestral": 30}},
+        {"name": "Damage / Meter", "unit": "raw", "rarity_values": {"Common": 0.005, "Rare": 0.01, "Epic": 0.025, "Legendary": 0.04, "Mythic": 0.075, "Ancestral": 0.15}},
+        {"name": "Multishot Chance", "unit": "percent_points", "rarity_values": {"Common": null, "Rare": 3, "Epic": 5, "Legendary": 7, "Mythic": 10, "Ancestral": 13}},
+        {"name": "Multishot Targets", "unit": "raw", "rarity_values": {"Common": null, "Rare": null, "Epic": 1, "Legendary": 2, "Mythic": 3, "Ancestral": 4}},
+        {"name": "Rapid Fire Chance", "unit": "percent_points", "rarity_values": {"Common": null, "Rare": 2, "Epic": 4, "Legendary": 6, "Mythic": 9, "Ancestral": 12}},
+        {"name": "Rapid Fire Duration", "unit": "seconds", "rarity_values": {"Common": null, "Rare": 0.4, "Epic": 0.8, "Legendary": 1.4, "Mythic": 2.5, "Ancestral": 3.5}},
+        {"name": "Bounce Shot Chance", "unit": "percent_points", "rarity_values": {"Common": null, "Rare": 2, "Epic": 3, "Legendary": 5, "Mythic": 9, "Ancestral": 12}},
+        {"name": "Bounce Shot Targets", "unit": "raw", "rarity_values": {"Common": null, "Rare": null, "Epic": 1, "Legendary": 2, "Mythic": 3, "Ancestral": 4}},
+        {"name": "Bounce Shot Range", "unit": "meters", "rarity_values": {"Common": null, "Rare": 0.5, "Epic": 0.8, "Legendary": 1.2, "Mythic": 1.8, "Ancestral": 2.0}},
+        {"name": "Super Crit Chance", "unit": "percent_points", "rarity_values": {"Common": null, "Rare": null, "Epic": 3, "Legendary": 5, "Mythic": 7, "Ancestral": 10}},
+        {"name": "Super Crit Multi", "unit": "multiplier", "rarity_values": {"Common": null, "Rare": null, "Epic": 2, "Legendary": 3, "Mythic": 5, "Ancestral": 7}},
+        {"name": "Rend Armor Chance", "unit": "percent_points", "rarity_values": {"Common": null, "Rare": null, "Epic": null, "Legendary": 2, "Mythic": 5, "Ancestral": 8}},
+        {"name": "Rend Armor Multi", "unit": "percent_points", "rarity_values": {"Common": null, "Rare": null, "Epic": null, "Legendary": 2, "Mythic": 5, "Ancestral": 8}},
+        {"name": "Max Rend Armor Multi", "unit": "percent_points", "rarity_values": {"Common": null, "Rare": null, "Epic": null, "Legendary": 200, "Mythic": 300, "Ancestral": 500}}
+      ]
+    },
+    {
+      "category": "armor_submodules_defense",
+      "submodules": [
+        {"name": "Health Regen", "unit": "percent_points", "rarity_values": {"Common": 20, "Rare": 40, "Epic": 60, "Legendary": 100, "Mythic": 200, "Ancestral": 400}},
+        {"name": "Defense", "unit": "percent_points", "rarity_values": {"Common": 1, "Rare": 2, "Epic": 3, "Legendary": 5, "Mythic": 6, "Ancestral": 8}},
+        {"name": "Defense Absolute", "unit": "percent_points", "rarity_values": {"Common": 15, "Rare": 25, "Epic": 40, "Legendary": 100, "Mythic": 500, "Ancestral": 1000}},
+        {"name": "Thorns Damage", "unit": "raw", "rarity_values": {"Common": null, "Rare": null, "Epic": 2, "Legendary": 4, "Mythic": 7, "Ancestral": 10}},
+        {"name": "Lifesteal", "unit": "percent_points", "rarity_values": {"Common": null, "Rare": null, "Epic": 0.3, "Legendary": 0.5, "Mythic": 1.5, "Ancestral": 2.0}},
+        {"name": "Knockback Chance", "unit": "percent_points", "rarity_values": {"Common": null, "Rare": null, "Epic": 2, "Legendary": 4, "Mythic": 6, "Ancestral": 9}},
+        {"name": "Knockback Force", "unit": "raw", "rarity_values": {"Common": null, "Rare": null, "Epic": 0.1, "Legendary": 0.4, "Mythic": 0.9, "Ancestral": 1.5}},
+        {"name": "Orb Speed", "unit": "raw", "rarity_values": {"Common": null, "Rare": null, "Epic": 1, "Legendary": 1.5, "Mythic": 2, "Ancestral": 3}},
+        {"name": "Orbs", "unit": "raw", "rarity_values": {"Common": null, "Rare": null, "Epic": null, "Legendary": null, "Mythic": 1, "Ancestral": 2}},
+        {"name": "Shockwave Size", "unit": "raw", "rarity_values": {"Common": null, "Rare": null, "Epic": 0.1, "Legendary": 0.3, "Mythic": 0.7, "Ancestral": 1}},
+        {"name": "Shockwave Frequency", "unit": "seconds", "rarity_values": {"Common": null, "Rare": null, "Epic": -1, "Legendary": -2, "Mythic": -3, "Ancestral": -4}},
+        {"name": "Land Mine Damage", "unit": "percent_points", "rarity_values": {"Common": null, "Rare": 30, "Epic": 50, "Legendary": 150, "Mythic": 500, "Ancestral": 800}},
+        {"name": "Land Mine Chance", "unit": "percent_points", "rarity_values": {"Common": null, "Rare": 1.5, "Epic": 3, "Legendary": 6, "Mythic": 9, "Ancestral": 12}},
+        {"name": "Land Mine Radius", "unit": "meters", "rarity_values": {"Common": null, "Rare": 0.1, "Epic": 0.15, "Legendary": 0.3, "Mythic": 0.75, "Ancestral": 1}},
+        {"name": "Death Defy", "unit": "percent_points", "rarity_values": {"Common": null, "Rare": null, "Epic": null, "Legendary": 1.5, "Mythic": 3.5, "Ancestral": 5}},
+        {"name": "Wall Health", "unit": "percent_points", "rarity_values": {"Common": null, "Rare": null, "Epic": 20, "Legendary": 40, "Mythic": 90, "Ancestral": 120}},
+        {"name": "Wall Rebuild", "unit": "seconds", "rarity_values": {"Common": null, "Rare": null, "Epic": -20, "Legendary": -40, "Mythic": -80, "Ancestral": -100}}
+      ]
+    },
+    {
+      "category": "generator_submodules_utility",
+      "submodules": [
+        {"name": "Cash Bonus", "unit": "raw", "rarity_values": {"Common": 0.1, "Rare": 0.2, "Epic": 0.3, "Legendary": 0.5, "Mythic": 1.2, "Ancestral": 2.5}},
+        {"name": "Cash / Wave", "unit": "raw", "rarity_values": {"Common": 30, "Rare": 50, "Epic": 100, "Legendary": 200, "Mythic": 500, "Ancestral": 1000}},
+        {"name": "Coins / Kill Bonus", "unit": "raw", "rarity_values": {"Common": 0.1, "Rare": 0.2, "Epic": 0.3, "Legendary": 0.4, "Mythic": 0.5, "Ancestral": 0.6}},
+        {"name": "Coins / Wave", "unit": "raw", "rarity_values": {"Common": 20, "Rare": 35, "Epic": 60, "Legendary": 120, "Mythic": 200, "Ancestral": 350}},
+        {"name": "Free Attack Upgrade", "unit": "percent_points", "rarity_values": {"Common": 2, "Rare": 4, "Epic": 6, "Legendary": 8, "Mythic": 10, "Ancestral": 12}},
+        {"name": "Free Defense Upgrade", "unit": "percent_points", "rarity_values": {"Common": 2, "Rare": 4, "Epic": 6, "Legendary": 8, "Mythic": 10, "Ancestral": 12}},
+        {"name": "Free Utility Upgrade", "unit": "percent_points", "rarity_values": {"Common": 2, "Rare": 4, "Epic": 6, "Legendary": 8, "Mythic": 10, "Ancestral": 12}},
+        {"name": "Interest / Wave", "unit": "percent_points", "rarity_values": {"Common": null, "Rare": null, "Epic": 2, "Legendary": 4, "Mythic": 6, "Ancestral": 8}},
+        {"name": "Recovery Amount", "unit": "percent_points", "rarity_values": {"Common": null, "Rare": null, "Epic": 3, "Legendary": 5, "Mythic": 7, "Ancestral": 10}},
+        {"name": "Max Recovery", "unit": "raw", "rarity_values": {"Common": null, "Rare": null, "Epic": 0.4, "Legendary": 0.7, "Mythic": 1.0, "Ancestral": 1.5}},
+        {"name": "Package Chance", "unit": "percent_points", "rarity_values": {"Common": null, "Rare": null, "Epic": 5, "Legendary": 8, "Mythic": 11, "Ancestral": 15}},
+        {"name": "Enemy Attack Level Skip", "unit": "percent_points", "rarity_values": {"Common": null, "Rare": null, "Epic": 2, "Legendary": 4, "Mythic": 6, "Ancestral": 8}},
+        {"name": "Enemy Health Level Skip", "unit": "percent_points", "rarity_values": {"Common": null, "Rare": null, "Epic": 2, "Legendary": 4, "Mythic": 6, "Ancestral": 8}}
+      ]
+    },
+    {
+      "category": "cores_submodules_ultimate_weapons",
+      "submodules": [
+        {"name": "Golden Tower - Bonus", "unit": "raw", "rarity_values": {"Common": null, "Rare": null, "Epic": 1, "Legendary": 2, "Mythic": 3, "Ancestral": 4}},
+        {"name": "Golden Tower - Duration", "unit": "seconds", "rarity_values": {"Common": null, "Rare": null, "Epic": null, "Legendary": 2, "Mythic": 4, "Ancestral": 7}},
+        {"name": "Golden Tower - Cooldown", "unit": "reduction_seconds", "rarity_values": {"Common": null, "Rare": null, "Epic": null, "Legendary": -5, "Mythic": -8, "Ancestral": -12}},
+        {"name": "Black Hole - Size", "unit": "meters", "rarity_values": {"Common": 2, "Rare": 4, "Epic": 6, "Legendary": 8, "Mythic": 10, "Ancestral": 12}},
+        {"name": "Black Hole - Duration", "unit": "seconds", "rarity_values": {"Common": null, "Rare": null, "Epic": null, "Legendary": 2, "Mythic": 3, "Ancestral": 4}},
+        {"name": "Black Hole - Cooldown", "unit": "reduction_seconds", "rarity_values": {"Common": null, "Rare": null, "Epic": null, "Legendary": -2, "Mythic": -3, "Ancestral": -4}},
+        {"name": "Spotlight - Bonus", "unit": "raw", "rarity_values": {"Common": 1.2, "Rare": 2.5, "Epic": 3.5, "Legendary": 10, "Mythic": 15, "Ancestral": 20}},
+        {"name": "Spotlight - Angle", "unit": "raw", "rarity_values": {"Common": null, "Rare": null, "Epic": 3, "Legendary": 6, "Mythic": 11, "Ancestral": 15}},
+        {"name": "Chrono Field - Duration", "unit": "seconds", "rarity_values": {"Common": null, "Rare": null, "Epic": null, "Legendary": 4, "Mythic": 7, "Ancestral": 10}},
+        {"name": "Chrono Field - Speed Reduction", "unit": "percent_points", "rarity_values": {"Common": null, "Rare": null, "Epic": 3, "Legendary": 8, "Mythic": 11, "Ancestral": 15}},
+        {"name": "Chrono Field - Cooldown", "unit": "reduction_seconds", "rarity_values": {"Common": null, "Rare": null, "Epic": null, "Legendary": -4, "Mythic": -7, "Ancestral": -10}},
+        {"name": "Death Wave - Damage", "unit": "multiplier", "rarity_values": {"Common": 8, "Rare": 15, "Epic": 25, "Legendary": 50, "Mythic": 100, "Ancestral": 250}},
+        {"name": "Death Wave - Quantity", "unit": "raw", "rarity_values": {"Common": null, "Rare": null, "Epic": null, "Legendary": 1, "Mythic": 2, "Ancestral": 3}},
+        {"name": "Death Wave - Cooldown", "unit": "reduction_seconds", "rarity_values": {"Common": null, "Rare": null, "Epic": null, "Legendary": -6, "Mythic": -10, "Ancestral": -13}},
+        {"name": "Smart Missiles - Damage", "unit": "multiplier", "rarity_values": {"Common": 8, "Rare": 15, "Epic": 25, "Legendary": 50, "Mythic": 100, "Ancestral": 250}},
+        {"name": "Smart Missiles - Quantity", "unit": "raw", "rarity_values": {"Common": null, "Rare": null, "Epic": 1, "Legendary": 2, "Mythic": 4, "Ancestral": 5}},
+        {"name": "Smart Missiles - Cooldown", "unit": "reduction_seconds", "rarity_values": {"Common": null, "Rare": null, "Epic": null, "Legendary": -2, "Mythic": -4, "Ancestral": -6}},
+        {"name": "Inner Land Mines - Damage", "unit": "multiplier", "rarity_values": {"Common": 8, "Rare": 15, "Epic": 25, "Legendary": 50, "Mythic": 100, "Ancestral": 250}},
+        {"name": "Inner Land Mines - Quantity", "unit": "raw", "rarity_values": {"Common": null, "Rare": null, "Epic": null, "Legendary": 1, "Mythic": 2, "Ancestral": 3}},
+        {"name": "Inner Land Mines - Cooldown", "unit": "reduction_seconds", "rarity_values": {"Common": null, "Rare": null, "Epic": -5, "Legendary": -8, "Mythic": -10, "Ancestral": -13}},
+        {"name": "Poison Swamp - Damage", "unit": "multiplier", "rarity_values": {"Common": 8, "Rare": 15, "Epic": 25, "Legendary": 50, "Mythic": 100, "Ancestral": 250}},
+        {"name": "Poison Swamp - Duration", "unit": "seconds", "rarity_values": {"Common": null, "Rare": null, "Epic": null, "Legendary": 2, "Mythic": 5, "Ancestral": 10}},
+        {"name": "Poison Swamp - Cooldown", "unit": "reduction_seconds", "rarity_values": {"Common": null, "Rare": -2, "Epic": -4, "Legendary": -6, "Mythic": -8, "Ancestral": -10}},
+        {"name": "Chain Lightning - Damage", "unit": "multiplier", "rarity_values": {"Common": 8, "Rare": 15, "Epic": 25, "Legendary": 50, "Mythic": 100, "Ancestral": 250}},
+        {"name": "Chain Lightning - Quantity", "unit": "raw", "rarity_values": {"Common": null, "Rare": null, "Epic": 1, "Legendary": 2, "Mythic": 3, "Ancestral": 4}},
+        {"name": "Chain Lightning - Chance", "unit": "percent_points", "rarity_values": {"Common": 2, "Rare": 4, "Epic": 6, "Legendary": 9, "Mythic": 12, "Ancestral": 15}}
+      ]
+    }
+  ]
+}

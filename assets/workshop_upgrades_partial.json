@@ -1,0 +1,1891 @@
+{
+  "meta": {
+    "source_index_url": "https://the-tower-idle-tower-defense.fandom.com/wiki/Workshop_Upgrades",
+    "retrieved_at": "2025-11-14T19:37:19.511622+00:00",
+    "item_count": 2,
+    "category_count": 4,
+    "license": "CC-BY-SA (source: Fandom) - numeric factual data only",
+    "errors_count": 0
+  },
+  "categories": {
+    "Attack Upgrades": [
+      "Damage",
+      "Attack Speed",
+      "Critical Chance",
+      "Critical Factor",
+      "Range",
+      "Damage Per Meter",
+      "Multishot Chance",
+      "Multishot Targets",
+      "Rapid Fire Chance",
+      "Rapid Fire Duration",
+      "Bounce Shot Chance",
+      "Bounce Shot Targets",
+      "Bounce Shot Range",
+      "Super Crit Chance",
+      "Super Crit Mult",
+      "Rend Armor Chance",
+      "Rend Armor Mult"
+    ],
+    "Defense Upgrades": [
+      "Health",
+      "Health Regen",
+      "Defense\u00a0%",
+      "Defense Absolute",
+      "Thorn Damage",
+      "Lifesteal",
+      "Knockback Chance",
+      "Knockback Force",
+      "Orb Speed",
+      "Orbs",
+      "Shockwave Size",
+      "Shockwave Frequency",
+      "Land Mine Chance",
+      "Land Mine Damage",
+      "Land Mine Radius",
+      "Death Defy",
+      "Wall Health",
+      "Wall Rebuild"
+    ],
+    "Utility Upgrades": [
+      "Cash Bonus",
+      "Cash / Wave",
+      "Coins / Kill Bonus",
+      "Coins/Wave",
+      "Free Attack Upgrade",
+      "Free Defense Upgrade",
+      "Free Utility Upgrade",
+      "Interest / Wave",
+      "Recovery Amount",
+      "Max Recovery",
+      "Package Chance",
+      "Enemy Attack Level Skip",
+      "Enemy Health Level Skip"
+    ],
+    "Ultimate Weapons": [
+      "Chain Lightning",
+      "Smart Missiles",
+      "Death Wave",
+      "Chrono Field",
+      "Inner Land Mines",
+      "Golden Tower",
+      "Poison Swamp",
+      "Black Hole",
+      "Spotlight"
+    ]
+  },
+  "items": [
+    {
+      "name": "Free Defense Upgrade",
+      "slug": "free_defense_upgrade",
+      "category": "Utility Upgrades",
+      "url": "https://the-tower-idle-tower-defense.fandom.com/wiki/Free_Upgrades",
+      "errors": [],
+      "table_headers": [
+        "level",
+        "value",
+        "coins",
+        "total coins"
+      ],
+      "levels": [
+        {
+          "level": 1,
+          "value_raw": "0.50%",
+          "value": 0.005,
+          "cost_raw": "75",
+          "cost": 75.0,
+          "total_cost_raw": "75",
+          "total_cost": 75.0
+        },
+        {
+          "level": 2,
+          "value_raw": "1.00%",
+          "value": 0.01,
+          "cost_raw": "118",
+          "cost": 118.0,
+          "total_cost_raw": "193",
+          "total_cost": 193.0
+        },
+        {
+          "level": 3,
+          "value_raw": "1.50%",
+          "value": 0.015,
+          "cost_raw": "171",
+          "cost": 171.0,
+          "total_cost_raw": "364",
+          "total_cost": 364.0
+        },
+        {
+          "level": 4,
+          "value_raw": "2.00%",
+          "value": 0.02,
+          "cost_raw": "236",
+          "cost": 236.0,
+          "total_cost_raw": "600",
+          "total_cost": 600.0
+        },
+        {
+          "level": 5,
+          "value_raw": "2.50%",
+          "value": 0.025,
+          "cost_raw": "314",
+          "cost": 314.0,
+          "total_cost_raw": "914",
+          "total_cost": 914.0
+        },
+        {
+          "level": 6,
+          "value_raw": "3.00%",
+          "value": 0.03,
+          "cost_raw": "407",
+          "cost": 407.0,
+          "total_cost_raw": "1.32K",
+          "total_cost": 1320.0
+        },
+        {
+          "level": 7,
+          "value_raw": "3.50%",
+          "value": 0.035,
+          "cost_raw": "515",
+          "cost": 515.0,
+          "total_cost_raw": "1.84K",
+          "total_cost": 1840.0
+        },
+        {
+          "level": 8,
+          "value_raw": "4.00%",
+          "value": 0.04,
+          "cost_raw": "639",
+          "cost": 639.0,
+          "total_cost_raw": "2.48K",
+          "total_cost": 2480.0
+        },
+        {
+          "level": 9,
+          "value_raw": "4.50%",
+          "value": 0.045,
+          "cost_raw": "781",
+          "cost": 781.0,
+          "total_cost_raw": "3.26K",
+          "total_cost": 3260.0
+        },
+        {
+          "level": 10,
+          "value_raw": "5.00%",
+          "value": 0.05,
+          "cost_raw": "941",
+          "cost": 941.0,
+          "total_cost_raw": "4.20K",
+          "total_cost": 4200.0
+        },
+        {
+          "level": 11,
+          "value_raw": "5.50%",
+          "value": 0.055,
+          "cost_raw": "1.12K",
+          "cost": 1120.0,
+          "total_cost_raw": "5.32K",
+          "total_cost": 5320.0
+        },
+        {
+          "level": 12,
+          "value_raw": "6.00%",
+          "value": 0.06,
+          "cost_raw": "1.32K",
+          "cost": 1320.0,
+          "total_cost_raw": "6.63K",
+          "total_cost": 6630.0
+        },
+        {
+          "level": 13,
+          "value_raw": "6.50%",
+          "value": 0.065,
+          "cost_raw": "1.53K",
+          "cost": 1530.0,
+          "total_cost_raw": "8.16K",
+          "total_cost": 8160.0
+        },
+        {
+          "level": 14,
+          "value_raw": "7.00%",
+          "value": 0.07,
+          "cost_raw": "1.77K",
+          "cost": 1770.0,
+          "total_cost_raw": "9.93K",
+          "total_cost": 9930.0
+        },
+        {
+          "level": 15,
+          "value_raw": "7.50%",
+          "value": 0.075,
+          "cost_raw": "2.03K",
+          "cost": 2029.9999999999998,
+          "total_cost_raw": "11.96K",
+          "total_cost": 11960.0
+        },
+        {
+          "level": 16,
+          "value_raw": "8.00%",
+          "value": 0.08,
+          "cost_raw": "2.30K",
+          "cost": 2300.0,
+          "total_cost_raw": "14.26K",
+          "total_cost": 14260.0
+        },
+        {
+          "level": 17,
+          "value_raw": "8.50%",
+          "value": 0.085,
+          "cost_raw": "2.60K",
+          "cost": 2600.0,
+          "total_cost_raw": "16.86K",
+          "total_cost": 16860.0
+        },
+        {
+          "level": 18,
+          "value_raw": "9.00%",
+          "value": 0.09,
+          "cost_raw": "2.92K",
+          "cost": 2920.0,
+          "total_cost_raw": "19.79K",
+          "total_cost": 19790.0
+        },
+        {
+          "level": 19,
+          "value_raw": "9.50%",
+          "value": 0.095,
+          "cost_raw": "3.27K",
+          "cost": 3270.0,
+          "total_cost_raw": "23.05K",
+          "total_cost": 23050.0
+        },
+        {
+          "level": 20,
+          "value_raw": "10.00%",
+          "value": 0.1,
+          "cost_raw": "3.63K",
+          "cost": 3630.0,
+          "total_cost_raw": "26.69K",
+          "total_cost": 26690.0
+        },
+        {
+          "level": 21,
+          "value_raw": "10.50%",
+          "value": 0.105,
+          "cost_raw": "4.02K",
+          "cost": 4019.9999999999995,
+          "total_cost_raw": "30.71K",
+          "total_cost": 30710.0
+        },
+        {
+          "level": 22,
+          "value_raw": "11.00%",
+          "value": 0.11,
+          "cost_raw": "4.43K",
+          "cost": 4430.0,
+          "total_cost_raw": "35.14K",
+          "total_cost": 35140.0
+        },
+        {
+          "level": 23,
+          "value_raw": "11.50%",
+          "value": 0.115,
+          "cost_raw": "4.87K",
+          "cost": 4870.0,
+          "total_cost_raw": "40.01K",
+          "total_cost": 40010.0
+        },
+        {
+          "level": 24,
+          "value_raw": "12.00%",
+          "value": 0.12,
+          "cost_raw": "5.33K",
+          "cost": 5330.0,
+          "total_cost_raw": "45.34K",
+          "total_cost": 45340.0
+        },
+        {
+          "level": 25,
+          "value_raw": "12.50%",
+          "value": 0.125,
+          "cost_raw": "5.81K",
+          "cost": 5810.0,
+          "total_cost_raw": "51.15K",
+          "total_cost": 51150.0
+        },
+        {
+          "level": 26,
+          "value_raw": "13.00%",
+          "value": 0.13,
+          "cost_raw": "6.32K",
+          "cost": 6320.0,
+          "total_cost_raw": "57.47K",
+          "total_cost": 57470.0
+        },
+        {
+          "level": 27,
+          "value_raw": "13.50%",
+          "value": 0.135,
+          "cost_raw": "6.85K",
+          "cost": 6850.0,
+          "total_cost_raw": "64.33K",
+          "total_cost": 64330.0
+        },
+        {
+          "level": 28,
+          "value_raw": "14.00%",
+          "value": 0.14,
+          "cost_raw": "7.41K",
+          "cost": 7410.0,
+          "total_cost_raw": "71.74K",
+          "total_cost": 71740.0
+        },
+        {
+          "level": 29,
+          "value_raw": "14.50%",
+          "value": 0.145,
+          "cost_raw": "8.00K",
+          "cost": 8000.0,
+          "total_cost_raw": "79.73K",
+          "total_cost": 79730.0
+        },
+        {
+          "level": 30,
+          "value_raw": "15.00%",
+          "value": 0.15,
+          "cost_raw": "8.60K",
+          "cost": 8600.0,
+          "total_cost_raw": "88.34K",
+          "total_cost": 88340.0
+        },
+        {
+          "level": 31,
+          "value_raw": "15.50%",
+          "value": 0.155,
+          "cost_raw": "9.24K",
+          "cost": 9240.0,
+          "total_cost_raw": "97.58K",
+          "total_cost": 97580.0
+        },
+        {
+          "level": 32,
+          "value_raw": "16.00%",
+          "value": 0.16,
+          "cost_raw": "9.90K",
+          "cost": 9900.0,
+          "total_cost_raw": "107.48K",
+          "total_cost": 107480.0
+        },
+        {
+          "level": 33,
+          "value_raw": "16.50%",
+          "value": 0.165,
+          "cost_raw": "10.59K",
+          "cost": 10590.0,
+          "total_cost_raw": "118.06K",
+          "total_cost": 118060.0
+        },
+        {
+          "level": 34,
+          "value_raw": "17.00%",
+          "value": 0.17,
+          "cost_raw": "11.30K",
+          "cost": 11300.0,
+          "total_cost_raw": "129.36K",
+          "total_cost": 129360.00000000001
+        },
+        {
+          "level": 35,
+          "value_raw": "17.50%",
+          "value": 0.175,
+          "cost_raw": "12.04K",
+          "cost": 12040.0,
+          "total_cost_raw": "141.41K",
+          "total_cost": 141410.0
+        },
+        {
+          "level": 36,
+          "value_raw": "18.00%",
+          "value": 0.18,
+          "cost_raw": "12.81K",
+          "cost": 12810.0,
+          "total_cost_raw": "154.22K",
+          "total_cost": 154220.0
+        },
+        {
+          "level": 37,
+          "value_raw": "18.50%",
+          "value": 0.185,
+          "cost_raw": "13.61K",
+          "cost": 13610.0,
+          "total_cost_raw": "167.82K",
+          "total_cost": 167820.0
+        },
+        {
+          "level": 38,
+          "value_raw": "19.00%",
+          "value": 0.19,
+          "cost_raw": "14.43K",
+          "cost": 14430.0,
+          "total_cost_raw": "182.25K",
+          "total_cost": 182250.0
+        },
+        {
+          "level": 39,
+          "value_raw": "19.50%",
+          "value": 0.195,
+          "cost_raw": "15.28K",
+          "cost": 15280.0,
+          "total_cost_raw": "197.53K",
+          "total_cost": 197530.0
+        },
+        {
+          "level": 40,
+          "value_raw": "20.00%",
+          "value": 0.2,
+          "cost_raw": "16.16K",
+          "cost": 16160.0,
+          "total_cost_raw": "213.69K",
+          "total_cost": 213690.0
+        },
+        {
+          "level": 41,
+          "value_raw": "20.50%",
+          "value": 0.205,
+          "cost_raw": "17.07K",
+          "cost": 17070.0,
+          "total_cost_raw": "230.75K",
+          "total_cost": 230750.0
+        },
+        {
+          "level": 42,
+          "value_raw": "21.00%",
+          "value": 0.21,
+          "cost_raw": "18.00K",
+          "cost": 18000.0,
+          "total_cost_raw": "248.75K",
+          "total_cost": 248750.0
+        },
+        {
+          "level": 43,
+          "value_raw": "21.50%",
+          "value": 0.215,
+          "cost_raw": "18.96K",
+          "cost": 18960.0,
+          "total_cost_raw": "267.72K",
+          "total_cost": 267720.0
+        },
+        {
+          "level": 44,
+          "value_raw": "22.00%",
+          "value": 0.22,
+          "cost_raw": "19.96K",
+          "cost": 19960.0,
+          "total_cost_raw": "287.67K",
+          "total_cost": 287670.0
+        },
+        {
+          "level": 45,
+          "value_raw": "22.50%",
+          "value": 0.225,
+          "cost_raw": "20.98K",
+          "cost": 20980.0,
+          "total_cost_raw": "308.65K",
+          "total_cost": 308650.0
+        },
+        {
+          "level": 46,
+          "value_raw": "23.00%",
+          "value": 0.23,
+          "cost_raw": "22.03K",
+          "cost": 22030.0,
+          "total_cost_raw": "330.68K",
+          "total_cost": 330680.0
+        },
+        {
+          "level": 47,
+          "value_raw": "23.50%",
+          "value": 0.235,
+          "cost_raw": "23.11K",
+          "cost": 23110.0,
+          "total_cost_raw": "353.79K",
+          "total_cost": 353790.0
+        },
+        {
+          "level": 48,
+          "value_raw": "24.00%",
+          "value": 0.24,
+          "cost_raw": "24.22K",
+          "cost": 24220.0,
+          "total_cost_raw": "378.01K",
+          "total_cost": 378010.0
+        },
+        {
+          "level": 49,
+          "value_raw": "24.50%",
+          "value": 0.245,
+          "cost_raw": "25.36K",
+          "cost": 25360.0,
+          "total_cost_raw": "403.37K",
+          "total_cost": 403370.0
+        },
+        {
+          "level": 50,
+          "value_raw": "25.00%",
+          "value": 0.25,
+          "cost_raw": "26.53K",
+          "cost": 26530.0,
+          "total_cost_raw": "429.90K",
+          "total_cost": 429900.0
+        },
+        {
+          "level": 51,
+          "value_raw": "25.50%",
+          "value": 0.255,
+          "cost_raw": "28.56K",
+          "cost": 28560.0,
+          "total_cost_raw": "458.46K",
+          "total_cost": 458460.0
+        },
+        {
+          "level": 52,
+          "value_raw": "26.00%",
+          "value": 0.26,
+          "cost_raw": "29.83K",
+          "cost": 29830.0,
+          "total_cost_raw": "488.29K",
+          "total_cost": 488290.0
+        },
+        {
+          "level": 53,
+          "value_raw": "26.50%",
+          "value": 0.265,
+          "cost_raw": "31.13K",
+          "cost": 31130.0,
+          "total_cost_raw": "519.41K",
+          "total_cost": 519409.99999999994
+        },
+        {
+          "level": 54,
+          "value_raw": "27.00%",
+          "value": 0.27,
+          "cost_raw": "32.46K",
+          "cost": 32460.0,
+          "total_cost_raw": "551.87K",
+          "total_cost": 551870.0
+        },
+        {
+          "level": 55,
+          "value_raw": "27.50%",
+          "value": 0.275,
+          "cost_raw": "33.82K",
+          "cost": 33820.0,
+          "total_cost_raw": "585.69K",
+          "total_cost": 585690.0
+        },
+        {
+          "level": 56,
+          "value_raw": "28.00%",
+          "value": 0.28,
+          "cost_raw": "35.21K",
+          "cost": 35210.0,
+          "total_cost_raw": "620.90K",
+          "total_cost": 620900.0
+        },
+        {
+          "level": 57,
+          "value_raw": "28.50%",
+          "value": 0.285,
+          "cost_raw": "36.64K",
+          "cost": 36640.0,
+          "total_cost_raw": "657.54K",
+          "total_cost": 657540.0
+        },
+        {
+          "level": 58,
+          "value_raw": "29.00%",
+          "value": 0.29,
+          "cost_raw": "38.10K",
+          "cost": 38100.0,
+          "total_cost_raw": "695.63K",
+          "total_cost": 695630.0
+        },
+        {
+          "level": 59,
+          "value_raw": "29.50%",
+          "value": 0.295,
+          "cost_raw": "39.59K",
+          "cost": 39590.0,
+          "total_cost_raw": "735.22K",
+          "total_cost": 735220.0
+        },
+        {
+          "level": 60,
+          "value_raw": "30.00%",
+          "value": 0.3,
+          "cost_raw": "41.11K",
+          "cost": 41110.0,
+          "total_cost_raw": "776.33K",
+          "total_cost": 776330.0
+        },
+        {
+          "level": 61,
+          "value_raw": "30.50%",
+          "value": 0.305,
+          "cost_raw": "42.67K",
+          "cost": 42670.0,
+          "total_cost_raw": "818.99K",
+          "total_cost": 818990.0
+        },
+        {
+          "level": 62,
+          "value_raw": "31.00%",
+          "value": 0.31,
+          "cost_raw": "44.25K",
+          "cost": 44250.0,
+          "total_cost_raw": "863.25K",
+          "total_cost": 863250.0
+        },
+        {
+          "level": 63,
+          "value_raw": "31.50%",
+          "value": 0.315,
+          "cost_raw": "45.88K",
+          "cost": 45880.0,
+          "total_cost_raw": "909.12K",
+          "total_cost": 909120.0
+        },
+        {
+          "level": 64,
+          "value_raw": "32.00%",
+          "value": 0.32,
+          "cost_raw": "47.53K",
+          "cost": 47530.0,
+          "total_cost_raw": "956.66K",
+          "total_cost": 956660.0
+        },
+        {
+          "level": 65,
+          "value_raw": "32.50%",
+          "value": 0.325,
+          "cost_raw": "49.22K",
+          "cost": 49220.0,
+          "total_cost_raw": "1.01M",
+          "total_cost": 1010000.0
+        },
+        {
+          "level": 66,
+          "value_raw": "33.00%",
+          "value": 0.33,
+          "cost_raw": "50.94K",
+          "cost": 50940.0,
+          "total_cost_raw": "1.06M",
+          "total_cost": 1060000.0
+        },
+        {
+          "level": 67,
+          "value_raw": "33.50%",
+          "value": 0.335,
+          "cost_raw": "52.70K",
+          "cost": 52700.0,
+          "total_cost_raw": "1.11M",
+          "total_cost": 1110000.0
+        },
+        {
+          "level": 68,
+          "value_raw": "34.00%",
+          "value": 0.34,
+          "cost_raw": "54.49K",
+          "cost": 54490.0,
+          "total_cost_raw": "1.16M",
+          "total_cost": 1160000.0
+        },
+        {
+          "level": 69,
+          "value_raw": "34.50%",
+          "value": 0.345,
+          "cost_raw": "56.31K",
+          "cost": 56310.0,
+          "total_cost_raw": "1.22M",
+          "total_cost": 1220000.0
+        },
+        {
+          "level": 70,
+          "value_raw": "35.00%",
+          "value": 0.35,
+          "cost_raw": "58.17K",
+          "cost": 58170.0,
+          "total_cost_raw": "1.28M",
+          "total_cost": 1280000.0
+        },
+        {
+          "level": 71,
+          "value_raw": "35.50%",
+          "value": 0.355,
+          "cost_raw": "60.06K",
+          "cost": 60060.0,
+          "total_cost_raw": "1.34M",
+          "total_cost": 1340000.0
+        },
+        {
+          "level": 72,
+          "value_raw": "36.00%",
+          "value": 0.36,
+          "cost_raw": "61.99K",
+          "cost": 61990.0,
+          "total_cost_raw": "1.40M",
+          "total_cost": 1400000.0
+        },
+        {
+          "level": 73,
+          "value_raw": "36.50%",
+          "value": 0.365,
+          "cost_raw": "63.95K",
+          "cost": 63950.0,
+          "total_cost_raw": "1.46M",
+          "total_cost": 1460000.0
+        },
+        {
+          "level": 74,
+          "value_raw": "37.00%",
+          "value": 0.37,
+          "cost_raw": "65.94K",
+          "cost": 65940.0,
+          "total_cost_raw": "1.53M",
+          "total_cost": 1530000.0
+        },
+        {
+          "level": 75,
+          "value_raw": "37.50%",
+          "value": 0.375,
+          "cost_raw": "67.97K",
+          "cost": 67970.0,
+          "total_cost_raw": "1.60M",
+          "total_cost": 1600000.0
+        },
+        {
+          "level": 76,
+          "value_raw": "38.00%",
+          "value": 0.38,
+          "cost_raw": "73.54K",
+          "cost": 73540.0,
+          "total_cost_raw": "1.67M",
+          "total_cost": 1670000.0
+        },
+        {
+          "level": 77,
+          "value_raw": "38.50%",
+          "value": 0.385,
+          "cost_raw": "75.75K",
+          "cost": 75750.0,
+          "total_cost_raw": "1.75M",
+          "total_cost": 1750000.0
+        },
+        {
+          "level": 78,
+          "value_raw": "39.00%",
+          "value": 0.39,
+          "cost_raw": "77.99K",
+          "cost": 77990.0,
+          "total_cost_raw": "1.83M",
+          "total_cost": 1830000.0
+        },
+        {
+          "level": 79,
+          "value_raw": "39.50%",
+          "value": 0.395,
+          "cost_raw": "80.27K",
+          "cost": 80270.0,
+          "total_cost_raw": "1.91M",
+          "total_cost": 1910000.0
+        },
+        {
+          "level": 80,
+          "value_raw": "40.00%",
+          "value": 0.4,
+          "cost_raw": "82.59K",
+          "cost": 82590.0,
+          "total_cost_raw": "1.99M",
+          "total_cost": 1990000.0
+        },
+        {
+          "level": 81,
+          "value_raw": "40.50%",
+          "value": 0.405,
+          "cost_raw": "84.94K",
+          "cost": 84940.0,
+          "total_cost_raw": "2.07M",
+          "total_cost": 2069999.9999999998
+        },
+        {
+          "level": 82,
+          "value_raw": "41.00%",
+          "value": 0.41,
+          "cost_raw": "87.33K",
+          "cost": 87330.0,
+          "total_cost_raw": "2.16M",
+          "total_cost": 2160000.0
+        },
+        {
+          "level": 83,
+          "value_raw": "41.50%",
+          "value": 0.415,
+          "cost_raw": "89.76K",
+          "cost": 89760.0,
+          "total_cost_raw": "2.25M",
+          "total_cost": 2250000.0
+        },
+        {
+          "level": 84,
+          "value_raw": "42.00%",
+          "value": 0.42,
+          "cost_raw": "92.23K",
+          "cost": 92230.0,
+          "total_cost_raw": "2.34M",
+          "total_cost": 2340000.0
+        },
+        {
+          "level": 85,
+          "value_raw": "42.50%",
+          "value": 0.425,
+          "cost_raw": "94.74K",
+          "cost": 94740.0,
+          "total_cost_raw": "2.44M",
+          "total_cost": 2440000.0
+        },
+        {
+          "level": 86,
+          "value_raw": "43.00%",
+          "value": 0.43,
+          "cost_raw": "97.28K",
+          "cost": 97280.0,
+          "total_cost_raw": "2.53M",
+          "total_cost": 2530000.0
+        },
+        {
+          "level": 87,
+          "value_raw": "43.50%",
+          "value": 0.435,
+          "cost_raw": "99.86K",
+          "cost": 99860.0,
+          "total_cost_raw": "2.63M",
+          "total_cost": 2630000.0
+        },
+        {
+          "level": 88,
+          "value_raw": "44.00%",
+          "value": 0.44,
+          "cost_raw": "102.48K",
+          "cost": 102480.0,
+          "total_cost_raw": "2.74M",
+          "total_cost": 2740000.0
+        },
+        {
+          "level": 89,
+          "value_raw": "44.50%",
+          "value": 0.445,
+          "cost_raw": "105.14K",
+          "cost": 105140.0,
+          "total_cost_raw": "2.84M",
+          "total_cost": 2840000.0
+        },
+        {
+          "level": 90,
+          "value_raw": "45.00%",
+          "value": 0.45,
+          "cost_raw": "107.84K",
+          "cost": 107840.0,
+          "total_cost_raw": "2.95M",
+          "total_cost": 2950000.0
+        },
+        {
+          "level": 91,
+          "value_raw": "45.50%",
+          "value": 0.455,
+          "cost_raw": "110.57K",
+          "cost": 110570.0,
+          "total_cost_raw": "3.06M",
+          "total_cost": 3060000.0
+        },
+        {
+          "level": 92,
+          "value_raw": "46.00%",
+          "value": 0.46,
+          "cost_raw": "113.35K",
+          "cost": 113350.0,
+          "total_cost_raw": "3.17M",
+          "total_cost": 3170000.0
+        },
+        {
+          "level": 93,
+          "value_raw": "46.50%",
+          "value": 0.465,
+          "cost_raw": "116.16K",
+          "cost": 116160.0,
+          "total_cost_raw": "3.29M",
+          "total_cost": 3290000.0
+        },
+        {
+          "level": 94,
+          "value_raw": "47.00%",
+          "value": 0.47,
+          "cost_raw": "119.02K",
+          "cost": 119020.0,
+          "total_cost_raw": "3.41M",
+          "total_cost": 3410000.0
+        },
+        {
+          "level": 95,
+          "value_raw": "47.50%",
+          "value": 0.475,
+          "cost_raw": "121.91K",
+          "cost": 121910.0,
+          "total_cost_raw": "3.53M",
+          "total_cost": 3530000.0
+        },
+        {
+          "level": 96,
+          "value_raw": "48.00%",
+          "value": 0.48,
+          "cost_raw": "124.84K",
+          "cost": 124840.0,
+          "total_cost_raw": "3.66M",
+          "total_cost": 3660000.0
+        },
+        {
+          "level": 97,
+          "value_raw": "48.50%",
+          "value": 0.485,
+          "cost_raw": "127.81K",
+          "cost": 127810.0,
+          "total_cost_raw": "3.78M",
+          "total_cost": 3780000.0
+        },
+        {
+          "level": 98,
+          "value_raw": "49.00%",
+          "value": 0.49,
+          "cost_raw": "130.82K",
+          "cost": 130820.0,
+          "total_cost_raw": "3.91M",
+          "total_cost": 3910000.0
+        },
+        {
+          "level": 99,
+          "value_raw": "49.50%",
+          "value": 0.495,
+          "cost_raw": "133.87K",
+          "cost": 133870.0,
+          "total_cost_raw": "4.05M",
+          "total_cost": 4050000.0
+        }
+      ]
+    },
+    {
+      "name": "Free Utility Upgrade",
+      "slug": "free_utility_upgrade",
+      "category": "Utility Upgrades",
+      "url": "https://the-tower-idle-tower-defense.fandom.com/wiki/Free_Upgrades",
+      "errors": [],
+      "table_headers": [
+        "level",
+        "value",
+        "coins",
+        "total coins"
+      ],
+      "levels": [
+        {
+          "level": 1,
+          "value_raw": "0.50%",
+          "value": 0.005,
+          "cost_raw": "100",
+          "cost": 100.0,
+          "total_cost_raw": "100",
+          "total_cost": 100.0
+        },
+        {
+          "level": 2,
+          "value_raw": "1.00%",
+          "value": 0.01,
+          "cost_raw": "143",
+          "cost": 143.0,
+          "total_cost_raw": "243",
+          "total_cost": 243.0
+        },
+        {
+          "level": 3,
+          "value_raw": "1.50%",
+          "value": 0.015,
+          "cost_raw": "196",
+          "cost": 196.0,
+          "total_cost_raw": "439",
+          "total_cost": 439.0
+        },
+        {
+          "level": 4,
+          "value_raw": "2.00%",
+          "value": 0.02,
+          "cost_raw": "261",
+          "cost": 261.0,
+          "total_cost_raw": "700",
+          "total_cost": 700.0
+        },
+        {
+          "level": 5,
+          "value_raw": "2.50%",
+          "value": 0.025,
+          "cost_raw": "339",
+          "cost": 339.0,
+          "total_cost_raw": "1.04K",
+          "total_cost": 1040.0
+        },
+        {
+          "level": 6,
+          "value_raw": "3.00%",
+          "value": 0.03,
+          "cost_raw": "432",
+          "cost": 432.0,
+          "total_cost_raw": "1.47K",
+          "total_cost": 1470.0
+        },
+        {
+          "level": 7,
+          "value_raw": "3.50%",
+          "value": 0.035,
+          "cost_raw": "540",
+          "cost": 540.0,
+          "total_cost_raw": "2.01K",
+          "total_cost": 2009.9999999999998
+        },
+        {
+          "level": 8,
+          "value_raw": "4.00%",
+          "value": 0.04,
+          "cost_raw": "664",
+          "cost": 664.0,
+          "total_cost_raw": "2.68K",
+          "total_cost": 2680.0
+        },
+        {
+          "level": 9,
+          "value_raw": "4.50%",
+          "value": 0.045,
+          "cost_raw": "806",
+          "cost": 806.0,
+          "total_cost_raw": "3.48K",
+          "total_cost": 3480.0
+        },
+        {
+          "level": 10,
+          "value_raw": "5.00%",
+          "value": 0.05,
+          "cost_raw": "966",
+          "cost": 966.0,
+          "total_cost_raw": "4.45K",
+          "total_cost": 4450.0
+        },
+        {
+          "level": 11,
+          "value_raw": "5.50%",
+          "value": 0.055,
+          "cost_raw": "1.14K",
+          "cost": 1140.0,
+          "total_cost_raw": "5.59K",
+          "total_cost": 5590.0
+        },
+        {
+          "level": 12,
+          "value_raw": "6.00%",
+          "value": 0.06,
+          "cost_raw": "1.34K",
+          "cost": 1340.0,
+          "total_cost_raw": "6.93K",
+          "total_cost": 6930.0
+        },
+        {
+          "level": 13,
+          "value_raw": "6.50%",
+          "value": 0.065,
+          "cost_raw": "1.56K",
+          "cost": 1560.0,
+          "total_cost_raw": "8.49K",
+          "total_cost": 8490.0
+        },
+        {
+          "level": 14,
+          "value_raw": "7.00%",
+          "value": 0.07,
+          "cost_raw": "1.79K",
+          "cost": 1790.0,
+          "total_cost_raw": "10.28K",
+          "total_cost": 10280.0
+        },
+        {
+          "level": 15,
+          "value_raw": "7.50%",
+          "value": 0.075,
+          "cost_raw": "2.05K",
+          "cost": 2050.0,
+          "total_cost_raw": "12.33K",
+          "total_cost": 12330.0
+        },
+        {
+          "level": 16,
+          "value_raw": "8.00%",
+          "value": 0.08,
+          "cost_raw": "2.33K",
+          "cost": 2330.0,
+          "total_cost_raw": "14.66K",
+          "total_cost": 14660.0
+        },
+        {
+          "level": 17,
+          "value_raw": "8.50%",
+          "value": 0.085,
+          "cost_raw": "2.63K",
+          "cost": 2630.0,
+          "total_cost_raw": "17.29K",
+          "total_cost": 17290.0
+        },
+        {
+          "level": 18,
+          "value_raw": "9.00%",
+          "value": 0.09,
+          "cost_raw": "2.95K",
+          "cost": 2950.0,
+          "total_cost_raw": "20.24K",
+          "total_cost": 20240.0
+        },
+        {
+          "level": 19,
+          "value_raw": "9.50%",
+          "value": 0.095,
+          "cost_raw": "3.29K",
+          "cost": 3290.0,
+          "total_cost_raw": "23.53K",
+          "total_cost": 23530.0
+        },
+        {
+          "level": 20,
+          "value_raw": "10.00%",
+          "value": 0.1,
+          "cost_raw": "3.66K",
+          "cost": 3660.0,
+          "total_cost_raw": "27.19K",
+          "total_cost": 27190.0
+        },
+        {
+          "level": 21,
+          "value_raw": "10.50%",
+          "value": 0.105,
+          "cost_raw": "4.05K",
+          "cost": 4050.0,
+          "total_cost_raw": "31.23K",
+          "total_cost": 31230.0
+        },
+        {
+          "level": 22,
+          "value_raw": "11.00%",
+          "value": 0.11,
+          "cost_raw": "4.46K",
+          "cost": 4460.0,
+          "total_cost_raw": "35.69K",
+          "total_cost": 35690.0
+        },
+        {
+          "level": 23,
+          "value_raw": "11.50%",
+          "value": 0.115,
+          "cost_raw": "4.89K",
+          "cost": 4890.0,
+          "total_cost_raw": "40.59K",
+          "total_cost": 40590.0
+        },
+        {
+          "level": 24,
+          "value_raw": "12.00%",
+          "value": 0.12,
+          "cost_raw": "5.35K",
+          "cost": 5350.0,
+          "total_cost_raw": "45.94K",
+          "total_cost": 45940.0
+        },
+        {
+          "level": 25,
+          "value_raw": "12.50%",
+          "value": 0.125,
+          "cost_raw": "5.84K",
+          "cost": 5840.0,
+          "total_cost_raw": "51.78K",
+          "total_cost": 51780.0
+        },
+        {
+          "level": 26,
+          "value_raw": "13.00%",
+          "value": 0.13,
+          "cost_raw": "6.35K",
+          "cost": 6350.0,
+          "total_cost_raw": "58.12K",
+          "total_cost": 58120.0
+        },
+        {
+          "level": 27,
+          "value_raw": "13.50%",
+          "value": 0.135,
+          "cost_raw": "6.88K",
+          "cost": 6880.0,
+          "total_cost_raw": "65.00K",
+          "total_cost": 65000.0
+        },
+        {
+          "level": 28,
+          "value_raw": "14.00%",
+          "value": 0.14,
+          "cost_raw": "7.44K",
+          "cost": 7440.0,
+          "total_cost_raw": "72.44K",
+          "total_cost": 72440.0
+        },
+        {
+          "level": 29,
+          "value_raw": "14.50%",
+          "value": 0.145,
+          "cost_raw": "8.02K",
+          "cost": 8020.0,
+          "total_cost_raw": "80.46K",
+          "total_cost": 80460.0
+        },
+        {
+          "level": 30,
+          "value_raw": "15.00%",
+          "value": 0.15,
+          "cost_raw": "8.63K",
+          "cost": 8630.0,
+          "total_cost_raw": "89.09K",
+          "total_cost": 89090.0
+        },
+        {
+          "level": 31,
+          "value_raw": "15.50%",
+          "value": 0.155,
+          "cost_raw": "9.26K",
+          "cost": 9260.0,
+          "total_cost_raw": "98.35K",
+          "total_cost": 98350.0
+        },
+        {
+          "level": 32,
+          "value_raw": "16.00%",
+          "value": 0.16,
+          "cost_raw": "9.93K",
+          "cost": 9930.0,
+          "total_cost_raw": "108.28K",
+          "total_cost": 108280.0
+        },
+        {
+          "level": 33,
+          "value_raw": "16.50%",
+          "value": 0.165,
+          "cost_raw": "10.61K",
+          "cost": 10610.0,
+          "total_cost_raw": "118.89K",
+          "total_cost": 118890.0
+        },
+        {
+          "level": 34,
+          "value_raw": "17.00%",
+          "value": 0.17,
+          "cost_raw": "11.33K",
+          "cost": 11330.0,
+          "total_cost_raw": "130.21K",
+          "total_cost": 130210.00000000001
+        },
+        {
+          "level": 35,
+          "value_raw": "17.50%",
+          "value": 0.175,
+          "cost_raw": "12.07K",
+          "cost": 12070.0,
+          "total_cost_raw": "142.28K",
+          "total_cost": 142280.0
+        },
+        {
+          "level": 36,
+          "value_raw": "18.00%",
+          "value": 0.18,
+          "cost_raw": "12.84K",
+          "cost": 12840.0,
+          "total_cost_raw": "155.12K",
+          "total_cost": 155120.0
+        },
+        {
+          "level": 37,
+          "value_raw": "18.50%",
+          "value": 0.185,
+          "cost_raw": "13.63K",
+          "cost": 13630.0,
+          "total_cost_raw": "168.75K",
+          "total_cost": 168750.0
+        },
+        {
+          "level": 38,
+          "value_raw": "19.00%",
+          "value": 0.19,
+          "cost_raw": "14.45K",
+          "cost": 14450.0,
+          "total_cost_raw": "183.20K",
+          "total_cost": 183200.0
+        },
+        {
+          "level": 39,
+          "value_raw": "19.50%",
+          "value": 0.195,
+          "cost_raw": "15.30K",
+          "cost": 15300.0,
+          "total_cost_raw": "198.50K",
+          "total_cost": 198500.0
+        },
+        {
+          "level": 40,
+          "value_raw": "20.00%",
+          "value": 0.2,
+          "cost_raw": "16.18K",
+          "cost": 16180.0,
+          "total_cost_raw": "214.69K",
+          "total_cost": 214690.0
+        },
+        {
+          "level": 41,
+          "value_raw": "20.50%",
+          "value": 0.205,
+          "cost_raw": "17.09K",
+          "cost": 17090.0,
+          "total_cost_raw": "231.78K",
+          "total_cost": 231780.0
+        },
+        {
+          "level": 42,
+          "value_raw": "21.00%",
+          "value": 0.21,
+          "cost_raw": "18.02K",
+          "cost": 18020.0,
+          "total_cost_raw": "249.80K",
+          "total_cost": 249800.0
+        },
+        {
+          "level": 43,
+          "value_raw": "21.50%",
+          "value": 0.215,
+          "cost_raw": "18.99K",
+          "cost": 18990.0,
+          "total_cost_raw": "268.79K",
+          "total_cost": 268790.0
+        },
+        {
+          "level": 44,
+          "value_raw": "22.00%",
+          "value": 0.22,
+          "cost_raw": "19.98K",
+          "cost": 19980.0,
+          "total_cost_raw": "288.77K",
+          "total_cost": 288770.0
+        },
+        {
+          "level": 45,
+          "value_raw": "22.50%",
+          "value": 0.225,
+          "cost_raw": "21.00K",
+          "cost": 21000.0,
+          "total_cost_raw": "309.78K",
+          "total_cost": 309780.0
+        },
+        {
+          "level": 46,
+          "value_raw": "23.00%",
+          "value": 0.23,
+          "cost_raw": "22.05K",
+          "cost": 22050.0,
+          "total_cost_raw": "331.83K",
+          "total_cost": 331830.0
+        },
+        {
+          "level": 47,
+          "value_raw": "23.50%",
+          "value": 0.235,
+          "cost_raw": "23.14K",
+          "cost": 23140.0,
+          "total_cost_raw": "354.97K",
+          "total_cost": 354970.0
+        },
+        {
+          "level": 48,
+          "value_raw": "24.00%",
+          "value": 0.24,
+          "cost_raw": "24.25K",
+          "cost": 24250.0,
+          "total_cost_raw": "379.21K",
+          "total_cost": 379210.0
+        },
+        {
+          "level": 49,
+          "value_raw": "24.50%",
+          "value": 0.245,
+          "cost_raw": "25.38K",
+          "cost": 25380.0,
+          "total_cost_raw": "404.59K",
+          "total_cost": 404590.0
+        },
+        {
+          "level": 50,
+          "value_raw": "25.00%",
+          "value": 0.25,
+          "cost_raw": "26.55K",
+          "cost": 26550.0,
+          "total_cost_raw": "431.15K",
+          "total_cost": 431150.0
+        },
+        {
+          "level": 51,
+          "value_raw": "25.50%",
+          "value": 0.255,
+          "cost_raw": "28.59K",
+          "cost": 28590.0,
+          "total_cost_raw": "459.73K",
+          "total_cost": 459730.0
+        },
+        {
+          "level": 52,
+          "value_raw": "26.00%",
+          "value": 0.26,
+          "cost_raw": "29.85K",
+          "cost": 29850.0,
+          "total_cost_raw": "489.59K",
+          "total_cost": 489590.0
+        },
+        {
+          "level": 53,
+          "value_raw": "26.50%",
+          "value": 0.265,
+          "cost_raw": "31.15K",
+          "cost": 31150.0,
+          "total_cost_raw": "520.74K",
+          "total_cost": 520740.0
+        },
+        {
+          "level": 54,
+          "value_raw": "27.00%",
+          "value": 0.27,
+          "cost_raw": "32.48K",
+          "cost": 32479.999999999996,
+          "total_cost_raw": "553.22K",
+          "total_cost": 553220.0
+        },
+        {
+          "level": 55,
+          "value_raw": "27.50%",
+          "value": 0.275,
+          "cost_raw": "33.84K",
+          "cost": 33840.0,
+          "total_cost_raw": "587.07K",
+          "total_cost": 587070.0
+        },
+        {
+          "level": 56,
+          "value_raw": "28.00%",
+          "value": 0.28,
+          "cost_raw": "35.24K",
+          "cost": 35240.0,
+          "total_cost_raw": "622.30K",
+          "total_cost": 622300.0
+        },
+        {
+          "level": 57,
+          "value_raw": "28.50%",
+          "value": 0.285,
+          "cost_raw": "36.66K",
+          "cost": 36660.0,
+          "total_cost_raw": "658.97K",
+          "total_cost": 658970.0
+        },
+        {
+          "level": 58,
+          "value_raw": "29.00%",
+          "value": 0.29,
+          "cost_raw": "38.12K",
+          "cost": 38120.0,
+          "total_cost_raw": "697.09K",
+          "total_cost": 697090.0
+        },
+        {
+          "level": 59,
+          "value_raw": "29.50%",
+          "value": 0.295,
+          "cost_raw": "39.61K",
+          "cost": 39610.0,
+          "total_cost_raw": "736.70K",
+          "total_cost": 736700.0
+        },
+        {
+          "level": 60,
+          "value_raw": "30.00%",
+          "value": 0.3,
+          "cost_raw": "41.14K",
+          "cost": 41140.0,
+          "total_cost_raw": "777.84K",
+          "total_cost": 777840.0
+        },
+        {
+          "level": 61,
+          "value_raw": "30.50%",
+          "value": 0.305,
+          "cost_raw": "42.69K",
+          "cost": 42690.0,
+          "total_cost_raw": "820.53K",
+          "total_cost": 820530.0
+        },
+        {
+          "level": 62,
+          "value_raw": "31.00%",
+          "value": 0.31,
+          "cost_raw": "44.28K",
+          "cost": 44280.0,
+          "total_cost_raw": "864.81K",
+          "total_cost": 864810.0
+        },
+        {
+          "level": 63,
+          "value_raw": "31.50%",
+          "value": 0.315,
+          "cost_raw": "45.90K",
+          "cost": 45900.0,
+          "total_cost_raw": "910.71K",
+          "total_cost": 910710.0
+        },
+        {
+          "level": 64,
+          "value_raw": "32.00%",
+          "value": 0.32,
+          "cost_raw": "47.56K",
+          "cost": 47560.0,
+          "total_cost_raw": "958.27K",
+          "total_cost": 958270.0
+        },
+        {
+          "level": 65,
+          "value_raw": "32.50%",
+          "value": 0.325,
+          "cost_raw": "49.25K",
+          "cost": 49250.0,
+          "total_cost_raw": "1.01M",
+          "total_cost": 1010000.0
+        },
+        {
+          "level": 66,
+          "value_raw": "33.00%",
+          "value": 0.33,
+          "cost_raw": "50.97K",
+          "cost": 50970.0,
+          "total_cost_raw": "1.06M",
+          "total_cost": 1060000.0
+        },
+        {
+          "level": 67,
+          "value_raw": "33.50%",
+          "value": 0.335,
+          "cost_raw": "52.72K",
+          "cost": 52720.0,
+          "total_cost_raw": "1.11M",
+          "total_cost": 1110000.0
+        },
+        {
+          "level": 68,
+          "value_raw": "34.00%",
+          "value": 0.34,
+          "cost_raw": "54.51K",
+          "cost": 54510.0,
+          "total_cost_raw": "1.17M",
+          "total_cost": 1170000.0
+        },
+        {
+          "level": 69,
+          "value_raw": "34.50%",
+          "value": 0.345,
+          "cost_raw": "56.34K",
+          "cost": 56340.0,
+          "total_cost_raw": "1.22M",
+          "total_cost": 1220000.0
+        },
+        {
+          "level": 70,
+          "value_raw": "35.00%",
+          "value": 0.35,
+          "cost_raw": "58.19K",
+          "cost": 58190.0,
+          "total_cost_raw": "1.28M",
+          "total_cost": 1280000.0
+        },
+        {
+          "level": 71,
+          "value_raw": "35.50%",
+          "value": 0.355,
+          "cost_raw": "60.09K",
+          "cost": 60090.0,
+          "total_cost_raw": "1.34M",
+          "total_cost": 1340000.0
+        },
+        {
+          "level": 72,
+          "value_raw": "36.00%",
+          "value": 0.36,
+          "cost_raw": "62.01K",
+          "cost": 62010.0,
+          "total_cost_raw": "1.40M",
+          "total_cost": 1400000.0
+        },
+        {
+          "level": 73,
+          "value_raw": "36.50%",
+          "value": 0.365,
+          "cost_raw": "63.97K",
+          "cost": 63970.0,
+          "total_cost_raw": "1.47M",
+          "total_cost": 1470000.0
+        },
+        {
+          "level": 74,
+          "value_raw": "37.00%",
+          "value": 0.37,
+          "cost_raw": "65.97K",
+          "cost": 65970.0,
+          "total_cost_raw": "1.53M",
+          "total_cost": 1530000.0
+        },
+        {
+          "level": 75,
+          "value_raw": "37.50%",
+          "value": 0.375,
+          "cost_raw": "68.00K",
+          "cost": 68000.0,
+          "total_cost_raw": "1.60M",
+          "total_cost": 1600000.0
+        },
+        {
+          "level": 76,
+          "value_raw": "38.00%",
+          "value": 0.38,
+          "cost_raw": "73.57K",
+          "cost": 73570.0,
+          "total_cost_raw": "1.67M",
+          "total_cost": 1670000.0
+        },
+        {
+          "level": 77,
+          "value_raw": "38.50%",
+          "value": 0.385,
+          "cost_raw": "75.77K",
+          "cost": 75770.0,
+          "total_cost_raw": "1.75M",
+          "total_cost": 1750000.0
+        },
+        {
+          "level": 78,
+          "value_raw": "39.00%",
+          "value": 0.39,
+          "cost_raw": "78.02K",
+          "cost": 78020.0,
+          "total_cost_raw": "1.83M",
+          "total_cost": 1830000.0
+        },
+        {
+          "level": 79,
+          "value_raw": "39.50%",
+          "value": 0.395,
+          "cost_raw": "80.30K",
+          "cost": 80300.0,
+          "total_cost_raw": "1.91M",
+          "total_cost": 1910000.0
+        },
+        {
+          "level": 80,
+          "value_raw": "40.00%",
+          "value": 0.4,
+          "cost_raw": "82.61K",
+          "cost": 82610.0,
+          "total_cost_raw": "1.99M",
+          "total_cost": 1990000.0
+        },
+        {
+          "level": 81,
+          "value_raw": "40.50%",
+          "value": 0.405,
+          "cost_raw": "84.97K",
+          "cost": 84970.0,
+          "total_cost_raw": "2.08M",
+          "total_cost": 2080000.0
+        },
+        {
+          "level": 82,
+          "value_raw": "41.00%",
+          "value": 0.41,
+          "cost_raw": "87.36K",
+          "cost": 87360.0,
+          "total_cost_raw": "2.16M",
+          "total_cost": 2160000.0
+        },
+        {
+          "level": 83,
+          "value_raw": "41.50%",
+          "value": 0.415,
+          "cost_raw": "89.79K",
+          "cost": 89790.0,
+          "total_cost_raw": "2.25M",
+          "total_cost": 2250000.0
+        },
+        {
+          "level": 84,
+          "value_raw": "42.00%",
+          "value": 0.42,
+          "cost_raw": "92.26K",
+          "cost": 92260.0,
+          "total_cost_raw": "2.34M",
+          "total_cost": 2340000.0
+        },
+        {
+          "level": 85,
+          "value_raw": "42.50%",
+          "value": 0.425,
+          "cost_raw": "94.76K",
+          "cost": 94760.0,
+          "total_cost_raw": "2.44M",
+          "total_cost": 2440000.0
+        },
+        {
+          "level": 86,
+          "value_raw": "43.00%",
+          "value": 0.43,
+          "cost_raw": "97.31K",
+          "cost": 97310.0,
+          "total_cost_raw": "2.54M",
+          "total_cost": 2540000.0
+        },
+        {
+          "level": 87,
+          "value_raw": "43.50%",
+          "value": 0.435,
+          "cost_raw": "99.89K",
+          "cost": 99890.0,
+          "total_cost_raw": "2.64M",
+          "total_cost": 2640000.0
+        },
+        {
+          "level": 88,
+          "value_raw": "44.00%",
+          "value": 0.44,
+          "cost_raw": "102.51K",
+          "cost": 102510.0,
+          "total_cost_raw": "2.74M",
+          "total_cost": 2740000.0
+        },
+        {
+          "level": 89,
+          "value_raw": "44.50%",
+          "value": 0.445,
+          "cost_raw": "105.17K",
+          "cost": 105170.0,
+          "total_cost_raw": "2.84M",
+          "total_cost": 2840000.0
+        },
+        {
+          "level": 90,
+          "value_raw": "45.00%",
+          "value": 0.45,
+          "cost_raw": "107.86K",
+          "cost": 107860.0,
+          "total_cost_raw": "2.95M",
+          "total_cost": 2950000.0
+        },
+        {
+          "level": 91,
+          "value_raw": "45.50%",
+          "value": 0.455,
+          "cost_raw": "110.60K",
+          "cost": 110600.0,
+          "total_cost_raw": "3.06M",
+          "total_cost": 3060000.0
+        },
+        {
+          "level": 92,
+          "value_raw": "46.00%",
+          "value": 0.46,
+          "cost_raw": "113.38K",
+          "cost": 113380.0,
+          "total_cost_raw": "3.18M",
+          "total_cost": 3180000.0
+        },
+        {
+          "level": 93,
+          "value_raw": "46.50%",
+          "value": 0.465,
+          "cost_raw": "116.19K",
+          "cost": 116190.0,
+          "total_cost_raw": "3.29M",
+          "total_cost": 3290000.0
+        },
+        {
+          "level": 94,
+          "value_raw": "47.00%",
+          "value": 0.47,
+          "cost_raw": "119.04K",
+          "cost": 119040.0,
+          "total_cost_raw": "3.41M",
+          "total_cost": 3410000.0
+        },
+        {
+          "level": 95,
+          "value_raw": "47.50%",
+          "value": 0.475,
+          "cost_raw": "121.94K",
+          "cost": 121940.0,
+          "total_cost_raw": "3.53M",
+          "total_cost": 3530000.0
+        },
+        {
+          "level": 96,
+          "value_raw": "48.00%",
+          "value": 0.48,
+          "cost_raw": "124.87K",
+          "cost": 124870.0,
+          "total_cost_raw": "3.66M",
+          "total_cost": 3660000.0
+        },
+        {
+          "level": 97,
+          "value_raw": "48.50%",
+          "value": 0.485,
+          "cost_raw": "127.84K",
+          "cost": 127840.0,
+          "total_cost_raw": "3.79M",
+          "total_cost": 3790000.0
+        },
+        {
+          "level": 98,
+          "value_raw": "49.00%",
+          "value": 0.49,
+          "cost_raw": "130.85K",
+          "cost": 130850.0,
+          "total_cost_raw": "3.92M",
+          "total_cost": 3920000.0
+        },
+        {
+          "level": 99,
+          "value_raw": "49.50%",
+          "value": 0.495,
+          "cost_raw": "133.90K",
+          "cost": 133900.0,
+          "total_cost_raw": "4.05M",
+          "total_cost": 4050000.0
+        }
+      ]
+    }
+  ]
+}

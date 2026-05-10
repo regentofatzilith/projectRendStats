@@ -1,0 +1,13 @@
+{
+  "items": [
+    {
+      "name": "Critical Factor",
+      "slug": "critical_factor",
+      "levels": [
+        {"level": 1, "cost_raw": "50.00", "cost": 50.0, "time_raw": "", "time_seconds": null, "value_raw": "1.30x", "value": 1.30, "total_cost_raw": "0.00", "total_cost": 0.0},
+        {"level": 10, "cost_raw": "593.00", "cost": 593.0, "time_raw": "", "time_seconds": null, "value_raw": "2.20x", "value": 2.20, "total_cost_raw": "2.65K", "total_cost": 2650.0},
+        {"level": 20, "cost_raw": "2.28K", "cost": 2280.0, "time_raw": "", "time_seconds": null, "value_raw": "3.20x", "value": 3.20, "total_cost_raw": "16.80K", "total_cost": 16800.0}
+      ]
+    }
+  ]
+}

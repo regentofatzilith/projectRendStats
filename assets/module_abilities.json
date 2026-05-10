@@ -1,0 +1,174 @@
+{
+  "meta": {
+    "generated_at": "2025-11-14T00:00:00Z",
+    "rarities": ["Epic", "Legendary", "Mythic", "Ancestral"],
+    "placeholder_token": "[x]",
+    "license": "User-supplied factual data"
+  },
+  "categories": [
+    {
+      "category": "cannon",
+      "modules": [
+        {
+          "name": "Astral Deliverance",
+            "ability": "Bounce shot's range is increased by 3% of the tower's total range. Each bounce increases the projectile's damage by [x]%",
+            "placeholders": ["[x]%"],
+            "values": {"Epic": 20, "Legendary": 40, "Mythic": 60, "Ancestral": 80}
+        },
+        {
+          "name": "Being Annihilator",
+          "ability": "When you super crit, your next [x] attacks are guaranteed super crits.",
+          "placeholders": ["[x] attacks"],
+          "values": {"Epic": 3, "Legendary": 4, "Mythic": 5, "Ancestral": 6}
+        },
+        {
+          "name": "Death Penalty",
+          "ability": "Chance of [x]% to mark an enemy for death when it spawns, causing the first hit to destroy it.",
+          "placeholders": ["[x]%"],
+          "values": {"Epic": 5, "Legendary": 8, "Mythic": 11, "Ancestral": 15}
+        },
+        {
+          "name": "Havoc Bringer",
+          "ability": "[x]% chance for rend armor to instantly go to max.",
+          "placeholders": ["[x]%"],
+          "values": {"Epic": 10, "Legendary": 13, "Mythic": 15, "Ancestral": 20}
+        },
+        {
+          "name": "Shrink Ray",
+          "ability": "Attacks have a 1% chance to apply a non-stacking effect that decreases the enemy's mass by [x]%",
+          "placeholders": ["[x]%"],
+          "values": {"Epic": 10, "Legendary": 20, "Mythic": 30, "Ancestral": 40}
+        },
+        {
+          "name": "Amplifying Strike",
+          "ability": "Killing a boss or elite enemy increases Tower Damage by 5x for [x]s",
+          "placeholders": ["[x]s"],
+          "values": {"Epic": 5, "Legendary": 11, "Mythic": 18, "Ancestral": 26}
+        }
+      ]
+    },
+    {
+      "category": "armor",
+      "modules": [
+        {
+          "name": "Anti-Cube Portal",
+          "ability": "Enemies take [x]x damage for 7s after they are hit by a shockwave.",
+          "placeholders": ["[x]x"],
+          "values": {"Epic": 10, "Legendary": 15, "Mythic": 20, "Ancestral": 25}
+        },
+        {
+          "name": "Negative Mass Projector",
+          "ability": "If an orb doesn't kill the enemy it will apply a stacking debuff, reducing its damage and speed by [x]% per hit, to a max reduction of 50%",
+          "placeholders": ["[x]%"],
+          "values": {"Epic": 1.0, "Legendary": 1.5, "Mythic": 2.0, "Ancestral": 2.5}
+        },
+        {
+          "name": "Wormhole Redirector",
+          "ability": "Health Regen can heal up to [x]% of Package Max Recovery",
+          "placeholders": ["[x]%"],
+          "values": {"Epic": 25, "Legendary": 50, "Mythic": 75, "Ancestral": 100}
+        },
+        {
+          "name": "Space Displacer",
+          "ability": "Landmines have a [x]% chance to spawn as an Inner Land Mine (20 max) instead of a normal mine. These mines autonomously move and organize around the tower.",
+          "placeholders": ["[x]%"],
+          "values": {"Epic": 15, "Legendary": 20, "Mythic": 25, "Ancestral": 30}
+        },
+        {
+          "name": "Sharp Fortitude",
+          "ability": "Increase the Wall's health and regen by x[x]. Enemies take +1% increased damage from wall thorns per subsequent hit.",
+          "placeholders": ["x[x]"],
+          "values": {"Epic": 1.25, "Legendary": 1.5, "Mythic": 2.0, "Ancestral": 2.5}
+        },
+        {
+          "name": "Orbital Augment",
+          "ability": "Adds [x] orbiting Electrons around the tower. Each Electron deals damage equal to 10% of wave health to any enemies they hit.",
+          "placeholders": ["[x]"],
+          "values": {"Epic": 2, "Legendary": 4, "Mythic": 6, "Ancestral": 8}
+        }
+      ]
+    },
+    {
+      "category": "generators",
+      "modules": [
+        {
+          "name": "Singularity Harness",
+          "ability": "Increase the range of each bot by +[x]m. Enemies hit by the Flame Bot receive double damage.",
+          "placeholders": ["[x]m"],
+          "values": {"Epic": 5, "Legendary": 8, "Mythic": 11, "Ancestral": 15}
+        },
+        {
+          "name": "Galaxy Compressor",
+          "ability": "Collecting a recovery package reduced the cooldown of all Ultimate Weapons except Poison Swamp by [x]s.",
+          "placeholders": ["[x]s"],
+          "values": {"Epic": 10, "Legendary": 13, "Mythic": 17, "Ancestral": 20}
+        },
+        {
+          "name": "Pulsar Harvester",
+          "ability": "Each time a projectile hits an enemy, there is a [x]% chance that it will reduce the enemy's Health and Attack level by 1 (diminishing returns after 100 reductions)",
+          "placeholders": ["[x]%"],
+          "values": {"Epic": 1.0, "Legendary": 1.5, "Mythic": 2.0, "Ancestral": 2.5}
+        },
+        {
+          "name": "Black Hole Digestor",
+          "ability": "Temporarily get [x]% extra Coins/ Kill Bonus for each free upgrade you got on the current wave. Free Upgrades can not increase Tower Range.",
+          "placeholders": ["[x]%"],
+          "values": {"Epic": 3, "Legendary": 5, "Mythic": 7, "Ancestral": 10}
+        },
+        {
+          "name": "Project Funding",
+          "ability": "Tower damage is multiplied by [x]% of the number of digits in your current cash",
+          "placeholders": ["[x]%"],
+          "values": {"Epic": 12.5, "Legendary": 25, "Mythic": 50, "Ancestral": 100}
+        },
+        {
+          "name": "Restorative Bonus",
+          "ability": "Packages grant a 50% attack speed boost for [x]s, decaying for 60 seconds.",
+          "placeholders": ["[x]s"],
+          "values": {"Epic": 15, "Legendary": 20, "Mythic": 25, "Ancestral": 30}
+        }
+      ]
+    },
+    {
+      "category": "cores",
+      "modules": [
+        {
+          "name": "Om Chip",
+          "ability": "Spotlight will rotate to focus a Boss. Bosses reflect the light around it to nearby enemies, increasing by [x]",
+          "placeholders": ["[x]"],
+          "values": {"Epic": 2, "Legendary": 4, "Mythic": 7, "Ancestral": 15}
+        },
+        {
+          "name": "Harmony Conductor",
+          "ability": "[x]% chance of poisoned enemies to miss-attack (bosses chance is halved).",
+          "placeholders": ["[x]%"],
+          "values": {"Epic": 15, "Legendary": 20, "Mythic": 25, "Ancestral": 30}
+        },
+        {
+          "name": "Dimension Core",
+          "ability": "Chain lightning have 60% chance of hitting the initial target. Shock chance and multiplier is doubled. If shock is applied again to the same enemy the shock multiplier will add up to a max stack of [x]",
+          "placeholders": ["[x]"],
+          "values": {"Epic": 5, "Legendary": 10, "Mythic": 15, "Ancestral": 20}
+        },
+        {
+          "name": "Multiverse Nexus",
+          "ability": "Death Wave, Golden Tower and Black Hole will always activate at the same time, but the cooldown will be the average of those +/-[x]s.",
+          "placeholders": ["[x]s"],
+          "values": {"Epic": 20, "Legendary": 10, "Mythic": 1, "Ancestral": -10}
+        },
+        {
+          "name": "Magnetic Hook",
+          "ability": "[x] Inner Land Mines are fired at Bosses as they enter Tower range. 25% of Elites have Inner Land Mines fired at them as they enter Tower range",
+          "placeholders": ["[x]"],
+          "values": {"Epic": 1, "Legendary": 2, "Mythic": 3, "Ancestral": 4}
+        },
+        {
+          "name": "Primordial Collapse",
+          "ability": "Spawns one additional Black Hole. Damage from enemies within a Black Hole is decreased by [x]%",
+          "placeholders": ["[x]%"],
+          "values": {"Epic": 50, "Legendary": 55, "Mythic": 65, "Ancestral": 80}
+        }
+      ]
+    }
+  ]
+}

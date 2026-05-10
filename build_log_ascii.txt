@@ -1,0 +1,181 @@
+272 INFO: PyInstaller: 6.20.0, contrib hooks: 2026.4
+273 INFO: Python: 3.13.7
+322 INFO: Platform: Windows-11-10.0.26200-SP0
+322 INFO: Python environment: D:\Python\ProjectAtzi\.venv
+329 INFO: Module search paths (PYTHONPATH):
+['D:\\Python\\ProjectAtzi',
+ 'C:\\Users\\thors\\AppData\\Local\\Programs\\Python\\Python313\\python313.zip',
+ 'C:\\Users\\thors\\AppData\\Local\\Programs\\Python\\Python313\\DLLs',
+ 'C:\\Users\\thors\\AppData\\Local\\Programs\\Python\\Python313\\Lib',
+ 'C:\\Users\\thors\\AppData\\Local\\Programs\\Python\\Python313',
+ 'D:\\Python\\ProjectAtzi\\.venv',
+ 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages',
+ 'D:\\Python\\ProjectAtzi']
+1071 INFO: Appending 'datas' from .spec
+1139 INFO: checking Analysis
+1139 INFO: Building Analysis because Analysis-00.toc is non existent
+1140 INFO: Looking for Python shared library...
+1140 INFO: Using Python shared library: C:\Users\thors\AppData\Local\Programs\Python\Python313\python313.dll
+1140 INFO: Running Analysis Analysis-00.toc
+1140 INFO: Target bytecode optimization level: 0
+1141 INFO: Initializing module dependency graph...
+1142 INFO: Initializing module graph hook caches...
+1169 INFO: Analyzing modules for base_library.zip ...
+3331 INFO: Processing standard module hook 'hook-encodings.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+7256 INFO: Processing standard module hook 'hook-pickle.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+8914 INFO: Processing standard module hook 'hook-heapq.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+9876 INFO: Caching module dependency graph...
+9959 INFO: Analyzing D:\Python\ProjectAtzi\app.py
+9981 INFO: Processing standard module hook 'hook-dash.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+10310 INFO: Processing standard module hook 'hook-platform.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+10353 INFO: Processing standard module hook 'hook-_ctypes.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+10594 INFO: Processing pre-safe-import-module hook 'hook-typing_extensions.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+10596 INFO: SetuptoolsInfo: initializing cached setuptools info...
+18548 INFO: Processing standard module hook 'hook-multiprocessing.util.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+19082 INFO: Processing standard module hook 'hook-xml.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+20640 INFO: Processing standard module hook 'hook-plotly.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+23733 INFO: Processing standard module hook 'hook-narwhals.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+23778 INFO: Processing standard module hook 'hook-pandas.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+26206 INFO: Processing standard module hook 'hook-sysconfig.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+26283 INFO: Processing standard module hook 'hook-numpy.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+27360 INFO: Processing standard module hook 'hook-difflib.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+32152 INFO: Processing standard module hook 'hook-charset_normalizer.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+33314 INFO: Processing standard module hook 'hook-pytz.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+34045 INFO: Processing standard module hook 'hook-scipy.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+36814 INFO: Processing standard module hook 'hook-scipy.linalg.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+37152 INFO: Processing standard module hook 'hook-scipy.special._ufuncs.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+40265 INFO: Processing standard module hook 'hook-scipy.spatial._ckdtree.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+41603 INFO: Processing standard module hook 'hook-scipy.spatial.transform.rotation.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+44331 INFO: Processing standard module hook 'hook-scipy.stats._stats.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+45695 INFO: Processing standard module hook 'hook-scipy.sparse.csgraph.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+47970 INFO: Processing standard module hook 'hook-scipy.special._ellip_harm_2.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+54886 INFO: Processing standard module hook 'hook-pandas.io.formats.style.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+59407 INFO: Processing standard module hook 'hook-pandas.plotting.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+61911 INFO: Processing standard module hook 'hook-sqlite3.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+62532 INFO: Processing standard module hook 'hook-pandas.io.clipboard.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+63162 INFO: Processing standard module hook 'hook-dateutil.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+63485 INFO: Processing pre-safe-import-module hook 'hook-six.moves.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+64253 INFO: Processing standard module hook 'hook-xml.etree.cElementTree.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+64276 INFO: Processing standard module hook 'hook-xml.dom.domreg.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+70454 INFO: Processing pre-safe-import-module hook 'hook-packaging.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+82585 INFO: Processing standard module hook 'hook-urllib3.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+82747 INFO: Processing pre-safe-import-module hook 'hook-backports.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+82748 INFO: Setuptools: 'backports' appears to be a full setuptools-vendored copy - creating alias to 'setuptools._vendor.backports'!
+82758 INFO: Processing standard module hook 'hook-setuptools.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+82777 INFO: Processing pre-safe-import-module hook 'hook-distutils.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+82829 INFO: Processing pre-safe-import-module hook 'hook-jaraco.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+82831 INFO: Setuptools: 'jaraco' appears to be a full setuptools-vendored copy - creating alias to 'setuptools._vendor.jaraco'!
+82850 INFO: Processing pre-safe-import-module hook 'hook-more_itertools.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+82851 INFO: Setuptools: 'more_itertools' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.more_itertools'!
+83494 INFO: Processing standard module hook 'hook-setuptools._vendor.jaraco.text.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+83496 INFO: Processing pre-safe-import-module hook 'hook-importlib_resources.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+83847 INFO: Processing pre-safe-import-module hook 'hook-importlib_metadata.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+83909 INFO: Processing standard module hook 'hook-importlib_metadata.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+83944 INFO: Processing pre-safe-import-module hook 'hook-zipp.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+84588 INFO: Processing pre-safe-import-module hook 'hook-tomli.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+84589 INFO: Setuptools: 'tomli' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.tomli'!
+85561 INFO: Processing pre-safe-import-module hook 'hook-wheel.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+85562 INFO: Setuptools: 'wheel' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.wheel'!
+86773 INFO: Processing standard module hook 'hook-certifi.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+91960 INFO: Processing standard module hook 'hook-jinja2.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+94983 INFO: Processing standard module hook 'hook-dash_bootstrap_components.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+95646 INFO: Processing standard module hook 'hook-sklearn.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+96348 INFO: Processing standard module hook 'hook-sklearn.utils.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+97323 INFO: Processing standard module hook 'hook-sklearn.externals.array_api_compat.numpy.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+97413 INFO: Processing standard module hook 'hook-sklearn.externals.array_api_compat.cupy.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+97438 INFO: Processing standard module hook 'hook-sklearn.externals.array_api_compat.torch.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+97527 INFO: Processing standard module hook 'hook-sklearn.externals.array_api_compat.dask.array.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+98069 INFO: Processing standard module hook 'hook-sklearn.metrics.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+939 WARNING: Failed to collect submodules for 'sklearn.metrics._pairwise_distances_reduction' because importing 'sklearn.metrics._pairwise_distances_reduction' raised: ImportError: DLL load failed while importing _ufuncs: Die Auslagerungsdatei ist zu klein, um diesen Vorgang durchzuführen.
+102943 INFO: Processing standard module hook 'hook-sklearn.metrics.cluster.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+103264 INFO: Processing standard module hook 'hook-sklearn.metrics.pairwise.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+103871 INFO: Processing standard module hook 'hook-sklearn.cluster.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+104399 INFO: Processing standard module hook 'hook-sklearn.neighbors.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+104660 INFO: Processing standard module hook 'hook-sklearn.linear_model.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+107502 INFO: Analyzing hidden import 'dash.page_registry'
+107502 ERROR: Hidden import 'dash.page_registry' not found
+107502 INFO: Analyzing hidden import 'beautifulsoup4'
+107503 ERROR: Hidden import 'beautifulsoup4' not found
+107503 INFO: Analyzing hidden import 'logging.config'
+107698 INFO: Analyzing hidden import 'collections.abc'
+107698 ERROR: Hidden import 'collections.abc' not found
+107699 INFO: Analyzing hidden import 'pages.metrics'
+108272 INFO: Analyzing hidden import 'pages.forecast'
+108347 INFO: Analyzing hidden import 'pages.settings'
+108376 INFO: Analyzing hidden import 'pages.tower_layout'
+108574 INFO: Analyzing hidden import 'pages.guardian_performance'
+108660 INFO: Analyzing hidden import 'pages.chance_calculators'
+108733 INFO: Analyzing hidden import 'pages.perma_calc_new'
+108733 ERROR: Hidden import 'pages.perma_calc_new' not found
+108733 INFO: Analyzing hidden import 'pages.simulation_helpers'
+108733 ERROR: Hidden import 'pages.simulation_helpers' not found
+108734 INFO: Analyzing hidden import 'functions.statistics.TimeSeriesStats'
+108734 ERROR: Hidden import 'functions.statistics.TimeSeriesStats' not found
+108734 INFO: Analyzing hidden import 'functions.optimizer'
+108734 ERROR: Hidden import 'functions.optimizer' not found
+108734 INFO: Analyzing hidden import 'functions.optimizer.Optimizer'
+108734 ERROR: Hidden import 'functions.optimizer.Optimizer' not found
+108734 INFO: Analyzing hidden import 'functions.simulation'
+108818 INFO: Analyzing hidden import 'functions.numbers'
+108819 ERROR: Hidden import 'functions.numbers' not found
+108819 INFO: Analyzing hidden import 'functions.numbers.ConvertNumbers'
+108819 ERROR: Hidden import 'functions.numbers.ConvertNumbers' not found
+108819 INFO: Processing module hooks (post-graph stage)...
+108908 INFO: Processing standard module hook 'hook-sklearn.tree.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+109164 WARNING: Hidden import "scipy.special._cdflib" not found!
+110259 INFO: Performing binary vs. data reclassification (1185 entries)
+110633 INFO: Looking for ctypes DLLs
+111279 INFO: Analyzing run-time hooks ...
+111322 INFO: Including run-time hook 'pyi_rth_inspect.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+111329 INFO: Including run-time hook 'pyi_rth_pkgutil.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+111335 INFO: Including run-time hook 'pyi_rth_multiprocessing.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+111342 INFO: Including run-time hook 'pyi_rth_setuptools.py' from 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+111525 INFO: Creating base_library.zip...
+111586 INFO: Looking for dynamic libraries
+119760 INFO: Extra DLL search directories (AddDllDirectory): ['D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\pandas.libs', 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\numpy.libs', 'D:\\Python\\ProjectAtzi\\.venv\\Lib\\site-packages\\scipy.libs']
+119760 INFO: Extra DLL search directories (PATH): []
+125833 INFO: Warnings written to D:\Python\ProjectAtzi\build\build_exe\warn-build_exe.txt
+126820 INFO: Graph cross-reference written to D:\Python\ProjectAtzi\build\build_exe\xref-build_exe.html
+127162 INFO: checking PYZ
+127407 INFO: checking PKG
+127407 INFO: Building PKG because PKG-00.toc is non existent
+127408 INFO: Building PKG (CArchive) TowerConquestAnalytics.pkg
+157523 INFO: Building PKG (CArchive) TowerConquestAnalytics.pkg completed successfully.
+157561 INFO: Bootloader D:\Python\ProjectAtzi\.venv\Lib\site-packages\PyInstaller\bootloader\Windows-64bit-intel\run.exe
+157561 INFO: checking EXE
+157561 INFO: Building EXE because EXE-00.toc is non existent
+157562 INFO: Building EXE from EXE-00.toc
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "D:\Python\ProjectAtzi\.venv\Lib\site-packages\PyInstaller\__main__.py", line 321, in <module>
+    run()
+    ~~~^^
+  File "D:\Python\ProjectAtzi\.venv\Lib\site-packages\PyInstaller\__main__.py", line 215, in run
+    run_build(pyi_config, spec_file, **vars(args))
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\ProjectAtzi\.venv\Lib\site-packages\PyInstaller\__main__.py", line 70, in run_build
+    PyInstaller.building.build_main.main(pyi_config, spec_file, **kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\ProjectAtzi\.venv\Lib\site-packages\PyInstaller\building\build_main.py", line 1275, in main
+    build(specfile, distpath, workpath, clean_build)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\ProjectAtzi\.venv\Lib\site-packages\PyInstaller\building\build_main.py", line 1213, in build
+    exec(code, spec_namespace)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "build_exe.spec", line 145, in <module>
+    exe = EXE(
+        pyz,
+    ...<18 lines>...
+        icon=None,  # Add icon path here if you have one: 'assets/icon.ico'
+    )
+  File "D:\Python\ProjectAtzi\.venv\Lib\site-packages\PyInstaller\building\api.py", line 675, in __init__
+    self.__postinit__()
+    ~~~~~~~~~~~~~~~~~^^
+  File "D:\Python\ProjectAtzi\.venv\Lib\site-packages\PyInstaller\building\datastruct.py", line 184, in __postinit__
+    self.assemble()
+    ~~~~~~~~~~~~~^^
+  File "D:\Python\ProjectAtzi\.venv\Lib\site-packages\PyInstaller\building\api.py", line 769, in assemble
+    os.remove(self.name)
+    ~~~~~~~~~^^^^^^^^^^^
+PermissionError: [WinError 32] Der Prozess kann nicht auf die Datei zugreifen, da sie von einem anderen Prozess verwendet wird: 'D:\\Python\\ProjectAtzi\\dist\\TowerConquestAnalytics.exe'

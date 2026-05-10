@@ -1,0 +1,1011 @@
+"""Simulation page - multiplier simulations and enhancement planning."""
+
+import dash
+from dash import dcc, html, callback, Input, Output, State, no_update
+import dash_bootstrap_components as dbc
+import plotly.graph_objects as go
+import logging
+from pathlib import Path
+import numpy as np
+
+from functions import user_data_store
+from functions.geometry import get_combined_ultimate_weapons_table
+from functions.simulation import compute_multiplier_simulation
+from functions.simulation import UltimateWeaponSimulator
+from functions.data import ImportJSON
+
+# Import helpers - use try/except to handle UNC path issues
+try:
+    from .simulation_helpers import create_stacked_log_chart, create_multiplier_cards
+except (ImportError, ModuleNotFoundError):
+    from pages.simulation_helpers import create_stacked_log_chart, create_multiplier_cards
+
+logger = logging.getLogger(__name__)
+
+# Register this page
+dash.register_page(__name__, path="/simulation", name="Simulation", order=2)
+
+# Default override values (used for initial input values and Reset button)
+# Keep the list order aligned with reset_overrides() Outputs.
+DEFAULT_OVERRIDE_VALUES = [
+    100,   # ovr-gb-cd
+    24.5,  # ovr-gb-up
+    4,   # ovr-gb-bonus
+    56,    # ovr-gb-range
+    170,   # ovr-dw-cd
+    4,     # ovr-dw-waves
+    2.35,  # ovr-dw-bonus
+    170,   # ovr-gt-cd
+    45,    # ovr-gt-up
+    15.95, # ovr-gt-bonus
+    46,    # ovr-bh-cd
+    34,    # ovr-bh-up
+    11,    # ovr-bh-bonus
+    48,    # ovr-bh-size
+    32,    # ovr-sp-dmg
+    2,     # ovr-sp-angle
+    2.4,   # ovr-sp-qty
+    180,   # ovr-cf-cd
+    28,    # ovr-cf-up
+    76,    # ovr-package-chance
+    80.56, # ovr-tower-range
+]
+
+DEFAULT_OVERRIDES = {
+    'ovr-gb-cd': DEFAULT_OVERRIDE_VALUES[0],
+    'ovr-gb-up': DEFAULT_OVERRIDE_VALUES[1],
+    'ovr-gb-bonus': DEFAULT_OVERRIDE_VALUES[2],
+    'ovr-gb-range': DEFAULT_OVERRIDE_VALUES[3],
+    'ovr-dw-cd': DEFAULT_OVERRIDE_VALUES[4],
+    'ovr-dw-waves': DEFAULT_OVERRIDE_VALUES[5],
+    'ovr-dw-bonus': DEFAULT_OVERRIDE_VALUES[6],
+    'ovr-gt-cd': DEFAULT_OVERRIDE_VALUES[7],
+    'ovr-gt-up': DEFAULT_OVERRIDE_VALUES[8],
+    'ovr-gt-bonus': DEFAULT_OVERRIDE_VALUES[9],
+    'ovr-bh-cd': DEFAULT_OVERRIDE_VALUES[10],
+    'ovr-bh-up': DEFAULT_OVERRIDE_VALUES[11],
+    'ovr-bh-bonus': DEFAULT_OVERRIDE_VALUES[12],
+    'ovr-bh-size': DEFAULT_OVERRIDE_VALUES[13],
+    'ovr-sp-dmg': DEFAULT_OVERRIDE_VALUES[14],
+    'ovr-sp-angle': DEFAULT_OVERRIDE_VALUES[15],
+    'ovr-sp-qty': DEFAULT_OVERRIDE_VALUES[16],
+    'ovr-cf-cd': DEFAULT_OVERRIDE_VALUES[17],
+    'ovr-cf-up': DEFAULT_OVERRIDE_VALUES[18],
+    'ovr-package-chance': DEFAULT_OVERRIDE_VALUES[19],
+    'ovr-tower-range': DEFAULT_OVERRIDE_VALUES[20],
+}
+
+ # Page layout
+layout = html.Div([
+    html.H1('Ultimate Weapons Simulation', className="page-title"),
+    # Shared effective params store (populated by Combined Overview callback)
+    dcc.Store(id='effective-params-store'),
+    
+    html.H2('Combined Overview'),
+    dbc.Row([
+        dbc.Col([
+            html.Label('Mode:'),
+            dcc.Dropdown(
+                id='game-mode-selector',
+                options=[
+                    {'label': 'Tournament (No Perks)', 'value': 'tournament'},
+                    {'label': 'Farming (Perks Active)', 'value': 'farming'}
+                ],
+                value='tournament',
+                clearable=False
+            )
+        ], width=3),
+        dbc.Col([
+            html.Label('Armor Module:'),
+            dcc.Dropdown(
+                id='armor-module-selector',
+                options=[
+                    {'label': 'Primordial Collapse', 'value': 'Primordial Collapse'},
+                    {'label': 'Multiverse Nexus', 'value': 'Multiverse Nexus'}
+                ],
+                value='Primordial Collapse',
+                clearable=False
+            )
+        ], width=2),
+        dbc.Col([
+            html.Label('Armor Rarity:'),
+            dcc.Dropdown(
+                id='armor-module-rarity',
+                options=[{'label': r, 'value': r} for r in ['Epic','Legendary','Mythic','Ancestral']],
+                value='Ancestral',
+                clearable=False
+            )
+        ], width=2),
+        dbc.Col([
+            html.Label('Generator Module:'),
+            dcc.Dropdown(
+                id='generator-module-selector',
+                options=[
+                    {'label': 'Galaxy Compressor', 'value': 'Galaxy Compressor'},
+                    {'label': 'Black Hole Digestor', 'value': 'Black Hole Digestor'}
+                ],
+                value='Galaxy Compressor',
+                clearable=False
+            )
+        ], width=2),
+        dbc.Col([
+            html.Label('Generator Rarity:'),
+            dcc.Dropdown(
+                id='generator-module-rarity',
+                options=[{'label': r, 'value': r} for r in ['Epic','Legendary','Mythic','Ancestral']],
+                value='Mythic',
+                clearable=False
+            )
+        ], width=2),
+    ], className="mb-4"),
+    
+    dbc.Row([
+        dbc.Col([
+            html.Label('Package Chance (%):'),
+            dcc.Slider(
+                id='package-chance-slider',
+                min=0,
+                max=80,
+                step=1,
+                value=76,
+                marks={i: f'{i}%' for i in range(0, 81, 20)},
+                tooltip={"placement": "bottom", "always_visible": True}
+            )
+        ], width=6),
+        dbc.Col([
+            html.Label('Boss Wave Interval:'),
+            dcc.Dropdown(
+                id='boss-wave-interval-selector',
+                options=[
+                    {'label': 'Every 4 waves', 'value': 4},
+                    {'label': 'Every 5 waves', 'value': 5},
+                    {'label': 'Every 6 waves', 'value': 6},
+                    {'label': 'Every 8 waves', 'value': 8},
+                    {'label': 'Every 10 waves', 'value': 10},
+                ],
+                value=10,
+                clearable=False
+            )
+        ], width=3),
+        dbc.Col([
+            html.Label('Lab: Package After Boss'),
+            dbc.Checklist(
+                id='lab-package-after-boss-toggle',
+                options=[{'label': ' Enable', 'value': 'enabled'}],
+                value=['enabled'],
+                switch=True,
+            )
+        ], width=3, style={'paddingTop': '0.5rem'})
+    ], className="mb-4"),
+    
+    dcc.Loading(
+        id='combined-ultimate-weapons-table-loading',
+        type='default',
+        children=html.Div(id='combined-ultimate-weapons-table')
+    ),
+    
+    html.Hr(style={'margin': '2rem 0', 'borderColor': '#202128'}),
+    html.H2('3600s Multiplier Simulation'),
+    dcc.Loading(
+        id='multiplier-sim-loading',
+        type='default',
+        children=dbc.Row([
+            dbc.Col(dcc.Graph(id='multiplier-sim-table', config={'displayModeBar': False}, figure=go.Figure(layout={'paper_bgcolor':'#000','plot_bgcolor':'#000','annotations':[{'text':'Adjust inputs above to run simulation','showarrow':False,'x':0.5,'y':0.5,'font':{'color':'#888'}}]})), width=9),
+            dbc.Col(html.Div(id='average-multiplier-card', children=dbc.Card(dbc.CardBody([
+                html.H6('Simulation Status'),
+                html.P('Waiting for inputs / data load', className='mb-0', style={'fontSize':'0.8rem','color':'#999'})
+            ]), style={'borderLeft':'4px solid #444'})), width=3)
+        ], className="mb-4")
+    ),
+
+    html.Hr(style={'margin': '2rem 0', 'borderColor': '#202128'}),
+    html.H2('Enhancement Planner (Overrides)'),
+    html.P('Adjust override values to re-run simulation based on Section 1 effective parameters. Leave blank to reuse current effective values.'),
+    dbc.Row([
+        dbc.Col([
+            html.H5('Golden Bot'),
+            dbc.Row([
+                dbc.Col(dcc.Input(id='ovr-gb-cd', type='number', placeholder='Cooldown (s)', debounce=True, value=DEFAULT_OVERRIDES['ovr-gb-cd']), width=4),
+                dbc.Col(dcc.Input(id='ovr-gb-up', type='number', placeholder='Duration (s)', debounce=True, value=DEFAULT_OVERRIDES['ovr-gb-up']), width=4),
+                dbc.Col(dcc.Input(id='ovr-gb-bonus', type='number', placeholder='Bonus Mult', debounce=True, value=DEFAULT_OVERRIDES['ovr-gb-bonus']), width=4),
+            ], className='mb-2'),
+            dbc.Row([
+                dbc.Col(dcc.Input(id='ovr-gb-range', type='number', placeholder='Range (m)', debounce=True, value=DEFAULT_OVERRIDES['ovr-gb-range']), width=4),
+            ])
+        ], width=12, lg=6, className='mb-3'),
+        dbc.Col([
+            html.H5('Death Wave'),
+            dbc.Row([
+                dbc.Col(dcc.Input(id='ovr-dw-cd', type='number', placeholder='Cooldown (s)', debounce=True, value=DEFAULT_OVERRIDES['ovr-dw-cd']), width=4),
+                dbc.Col(dcc.Input(id='ovr-dw-waves', type='number', placeholder='Waves', debounce=True, value=DEFAULT_OVERRIDES['ovr-dw-waves']), width=4),
+                dbc.Col(dcc.Input(id='ovr-dw-bonus', type='number', placeholder='Bonus Mult', debounce=True, value=DEFAULT_OVERRIDES['ovr-dw-bonus']), width=4),
+            ])
+        ], width=12, lg=6, className='mb-3'),
+        dbc.Col([
+            html.H5('Golden Tower'),
+            dbc.Row([
+                dbc.Col(dcc.Input(id='ovr-gt-cd', type='number', placeholder='Cooldown (s)', debounce=True, value=DEFAULT_OVERRIDES['ovr-gt-cd']), width=4),
+                dbc.Col(dcc.Input(id='ovr-gt-up', type='number', placeholder='Duration (s)', debounce=True, value=DEFAULT_OVERRIDES['ovr-gt-up']), width=4),
+                dbc.Col(dcc.Input(id='ovr-gt-bonus', type='number', placeholder='Bonus Mult', debounce=True, value=DEFAULT_OVERRIDES['ovr-gt-bonus']), width=4),
+            ])
+        ], width=12, lg=6, className='mb-3'),
+        dbc.Col([
+            html.H5('Black Hole'),
+            dbc.Row([
+                dbc.Col(dcc.Input(id='ovr-bh-cd', type='number', placeholder='Cooldown (s)', debounce=True, value=DEFAULT_OVERRIDES['ovr-bh-cd']), width=3),
+                dbc.Col(dcc.Input(id='ovr-bh-up', type='number', placeholder='Duration (s)', debounce=True, value=DEFAULT_OVERRIDES['ovr-bh-up']), width=3),
+                dbc.Col(dcc.Input(id='ovr-bh-bonus', type='number', placeholder='Bonus Mult', debounce=True, value=DEFAULT_OVERRIDES['ovr-bh-bonus']), width=3),
+                dbc.Col(dcc.Input(id='ovr-bh-size', type='number', placeholder='Size (m)', debounce=True, value=DEFAULT_OVERRIDES['ovr-bh-size']), width=3),
+            ])
+        ], width=12, lg=6, className='mb-3'),
+        dbc.Col([
+            html.H5('Spotlight'),
+            dbc.Row([
+                dbc.Col(dcc.Input(id='ovr-sp-angle', type='number', placeholder='Angle (deg)', debounce=True, value=DEFAULT_OVERRIDES['ovr-sp-angle']), width=4),
+                dbc.Col(dcc.Input(id='ovr-sp-qty', type='number', placeholder='Quantity', debounce=True, value=DEFAULT_OVERRIDES['ovr-sp-qty']), width=4),
+                dbc.Col(dcc.Input(id='ovr-sp-dmg', type='number', placeholder='Bonus Mult', debounce=True, value=DEFAULT_OVERRIDES['ovr-sp-dmg']), width=4),
+            ])
+        ], width=12, lg=6, className='mb-3'),
+        dbc.Col([
+            html.H5('Chrono Field'),
+            dbc.Row([
+                dbc.Col(dcc.Input(id='ovr-cf-cd', type='number', placeholder='Cooldown (s)', debounce=True, value=DEFAULT_OVERRIDES['ovr-cf-cd']), width=6),
+                dbc.Col(dcc.Input(id='ovr-cf-up', type='number', placeholder='Duration (s)', debounce=True, value=DEFAULT_OVERRIDES['ovr-cf-up']), width=6),
+            ])
+        ], width=12, lg=6, className='mb-3'),
+    ]),
+    dbc.Row([
+        dbc.Col([
+            dbc.Button('Run Override Simulation', id='planner-run-btn', color='primary', className='me-2'),
+            dbc.Button('Reset to Current', id='planner-reset-btn', color='secondary', outline=True, className='me-2'),
+            dbc.Button('Re-roll Packages', id='planner-reroll-btn', color='info', outline=True)
+        ], width=12)
+    ], className='mb-3'),
+    dbc.Row([
+        dbc.Col([
+            dbc.Card([
+                dbc.CardBody([
+                    html.Label('Package Chance (%)', style={'color': '#fff', 'fontWeight': 'bold'}),
+                    dcc.Input(
+                        id='ovr-package-chance',
+                        type='number',
+                        placeholder='Chance %',
+                        debounce=True,
+                        value=DEFAULT_OVERRIDES['ovr-package-chance'],
+                        style={
+                            'backgroundColor': '#222',
+                            'color': '#fff',
+                            'fontSize': '1.2rem',
+                            'padding': '6px 12px',
+                            'borderRadius': '4px',
+                            'width': '110px',
+                            'textAlign': 'center',
+                            'marginTop': '4px',
+                            'marginBottom': '4px',
+                            'border': '1px solid #444'
+                        }
+                    )
+                ])
+            ], style={'backgroundColor': '#111', 'border': 'none', 'boxShadow': 'none', 'width': 'fit-content', 'margin': '0 auto'})
+        ], width=6, lg=3),
+        dbc.Col([
+            dbc.Card([
+                dbc.CardBody([
+                    html.Label('Tower Range (m)', style={'color': '#fff', 'fontWeight': 'bold'}),
+                    dcc.Input(
+                        id='ovr-tower-range',
+                        type='number',
+                        placeholder='Range (m)',
+                        debounce=True,
+                        value=DEFAULT_OVERRIDES['ovr-tower-range'],
+                        style={
+                            'backgroundColor': '#222',
+                            'color': '#fff',
+                            'fontSize': '1.2rem',
+                            'padding': '6px 12px',
+                            'borderRadius': '4px',
+                            'width': '110px',
+                            'textAlign': 'center',
+                            'marginTop': '4px',
+                            'marginBottom': '4px',
+                            'border': '1px solid #444'
+                        }
+                    )
+                ])
+            ], style={'backgroundColor': '#111', 'border': 'none', 'boxShadow': 'none', 'width': 'fit-content', 'margin': '0 auto'})
+        ], width=6, lg=3),
+    ], className='mb-3'),
+
+    dcc.Loading(
+        id='planner-sim-loading',
+        type='default',
+        children=dbc.Row([
+            dbc.Col(dcc.Graph(id='planner-sim-graph', config={'displayModeBar': False}, figure=go.Figure(layout={'paper_bgcolor':'#000','plot_bgcolor':'#000','annotations':[{'text':'Set overrides and click Run','showarrow':False,'x':0.5,'y':0.5,'font':{'color':'#888'}}]})), width=9),
+            dbc.Col(html.Div([
+                dbc.Card(dbc.CardBody([
+                    html.H6('Planner Status'),
+                    html.P('No override run yet', className='mb-0', style={'fontSize':'0.8rem','color':'#999'}),
+                    html.Div(id='planner-activation-line', style={'fontSize':'1.1rem','color':'#fff','marginTop':'1rem'})
+                ]), style={'borderLeft':'4px solid #6E18FF'})
+            ], id='planner-average-card'), width=3)
+        ], className='mb-4')
+    ),
+
+    html.Hr(style={'margin': '2rem 0', 'borderColor': '#202128'}),
+    html.H2('Is UW Permanent?'),
+    html.P('Click "Run Override Simulation" above to update.'),
+    
+    dcc.Store(id='planner-components-store'),
+    dcc.Store(id='shared-package-store'),  # Stores package distribution for all simulations
+    
+    dbc.Row([
+        dbc.Col([
+            dbc.Card([dbc.CardBody([
+                html.H6('Mode', className='card-title'),
+                html.H3(id='uw-mode-display', className='card-text'),
+                html.Small(id='uw-perks-display', style={'color': '#999'}),
+            ])], style={'borderLeft': '4px solid #444'}, className='mb-2'),
+        ], width=4),
+        dbc.Col([
+            dbc.Card([dbc.CardBody([
+                html.H6('Boss Wave Interval', className='card-title'),
+                html.H3(id='uw-boss-interval-display', className='card-text'),
+                html.Small(id='uw-lab-package-display', style={'color': '#999'}),
+            ])], style={'borderLeft': '4px solid #444'}, className='mb-2'),
+        ], width=4),
+        dbc.Col([
+            dbc.Card([dbc.CardBody([
+                html.H6('Galaxy Compressor', className='card-title'),
+                html.H3(id='uw-gc-effect', className='card-text'),
+                html.Small(id='uw-gc-rarity', style={'color': '#999'}),
+            ])], style={'borderLeft': '4px solid #444'}, className='mb-2'),
+        ], width=4),
+    ], className='mb-3'),
+    
+    dbc.Row([
+        dbc.Col([
+            dcc.Loading(
+                id='uw-permanence-graph-loading',
+                type='default',
+                children=dcc.Graph(id='uw-permanence-graph', config={'displayModeBar': False}, figure=go.Figure(layout={'paper_bgcolor':'#000','plot_bgcolor':'#000','annotations':[{'text':'Run override simulation to view','showarrow':False,'x':0.5,'y':0.5,'font':{'color':'#888'}}]}))
+            )
+        ], width=9),
+        dbc.Col([
+            html.Label('Select Ultimate Weapon:', className='mb-2'),
+            dcc.Dropdown(
+                id='uw-permanence-selector',
+                options=[
+                    {'label': 'Black Hole', 'value': 'black_hole'},
+                    {'label': 'Golden Tower', 'value': 'golden_tower'},
+                    {'label': 'Chrono Field', 'value': 'chrono_field'},
+                    {'label': 'Death Wave', 'value': 'death_wave'},
+                ],
+                value='black_hole',
+                clearable=False,
+                className='mb-3'
+            ),
+            dbc.Row([
+                dbc.Col([
+                    dbc.Card([dbc.CardBody([
+                        html.H6('Duration (s)', className='card-title'),
+                        html.H3(id='uw-duration', className='card-text'),
+                    ])], id='uw-duration-card', style={'borderLeft': '4px solid #444'}, className='mb-2'),
+                ], width=6),
+                dbc.Col([
+                    dbc.Card([dbc.CardBody([
+                        html.H6('Cooldown (s)', className='card-title'),
+                        html.H3(id='uw-cooldown', className='card-text'),
+                    ])], id='uw-cooldown-card', style={'borderLeft': '4px solid #444'}, className='mb-2'),
+                ], width=6),
+            ]),
+            dbc.Row([
+                dbc.Col([
+                    dbc.Card([dbc.CardBody([
+                        html.H6('Downtime Events', className='card-title'),
+                        html.H3(id='uw-downtime-count', className='card-text'),
+                        html.Small(id='uw-downtime-total-seconds', style={'color': '#999'}),
+                    ])], style={'borderLeft': '4px solid #444'}, className='mb-2'),
+                ], width=6),
+                dbc.Col([
+                    dbc.Card([dbc.CardBody([
+                        html.H6('Uptime %', className='card-title'),
+                        html.H3(id='uw-uptime-pct', className='card-text'),
+                    ])], style={'borderLeft': '4px solid #444'}, className='mb-2'),
+                ], width=6),
+            ]),
+            dbc.Row([
+                dbc.Col([
+                    dbc.Card([dbc.CardBody([
+                        html.H6('Downtime Stats (s)', className='card-title'),
+                        html.Div([
+                            html.Div('Max: ', style={'display':'inline'}),
+                            html.Span(id='uw-downtime-max', style={'marginRight':'1rem'}),
+                            html.Div('Avg: ', style={'display':'inline'}),
+                            html.Span(id='uw-downtime-avg', style={'marginRight':'1rem'}),
+                            html.Div('Median: ', style={'display':'inline'}),
+                            html.Span(id='uw-downtime-median'),
+                        ], style={'fontSize':'1.2rem'})
+                    ])], style={'borderLeft': '4px solid #444'}, className='mb-2'),
+                ], width=12),
+            ]),
+        ], width=3),
+    ], className='mb-4')
+])
+
+@callback(
+    [Output('combined-ultimate-weapons-table', 'children'),
+     Output('effective-params-store', 'data')],
+    [Input('user-json-store', 'data'),
+     Input('game-mode-selector', 'value'),
+     Input('armor-module-selector', 'value'),
+     Input('armor-module-rarity', 'value'),
+     Input('generator-module-selector', 'value'),
+     Input('generator-module-rarity', 'value'),
+     Input('package-chance-slider', 'value'),
+     Input('boss-wave-interval-selector', 'value'),
+     Input('lab-package-after-boss-toggle', 'value')]
+)
+def render_combined_table(user_json_state, game_mode, armor_module, armor_rarity, generator_module, generator_rarity, package_chance, boss_interval, lab_boss_package):
+    """Render combined ultimate weapons table."""
+    try:
+        # Find data file from user_data_store
+        if user_data_store.current_path is None:
+            # Must return both outputs (table children, effective params dict)
+            return html.Div("No userData.json loaded. Please import data in Settings.", style={'color': '#999', 'padding': '2rem'}), {}
+        
+        armor_module = armor_module or "Primordial Collapse"
+        armor_rarity = armor_rarity or "Epic"
+        generator_module = generator_module or "Galaxy Compressor"
+        generator_rarity = generator_rarity or "Epic"
+        game_mode = game_mode or "farming"
+
+        layout = get_combined_ultimate_weapons_table(
+            str(user_data_store.current_path),
+            armor_module=armor_module,
+            armor_rarity=armor_rarity,
+            generator_module=generator_module,
+            generator_rarity=generator_rarity,
+            package_chance=package_chance or 73,
+            game_mode=game_mode,
+        )
+        # Build effective parameters snapshot via simulator (1s duration for speed)
+        try:
+            sim = UltimateWeaponSimulator(
+                duration_s=1,
+                game_mode=game_mode,
+                armor_module=armor_module,
+                armor_rarity=armor_rarity,
+                generator_module=generator_module,
+                generator_rarity=generator_rarity,
+                package_chance_pct=float(package_chance or 73),
+                start_after_first_cooldown=False,
+            )
+            # Call private loader (fast) instead of full run
+            sim._load_base_parameters()  # noqa: SLF001 (intentional internal use)
+            effective = sim.effective_params.copy()
+        except Exception:
+            effective = {}
+        return layout, effective
+    except Exception as e:
+        import traceback
+        return html.Div([
+            html.Span('Error rendering table: ', style={'color': '#f97316'}),
+            html.Span(str(e)),
+            html.Details([
+                html.Summary('Show error details'),
+                html.Pre(traceback.format_exc(), style={'fontSize': '0.8rem', 'maxHeight': '200px', 'overflow': 'auto'})
+            ])
+        ]), {}
+
+
+@callback(
+    [Output('uw-downtime-count', 'children'),
+     Output('uw-downtime-total-seconds', 'children'),
+     Output('uw-uptime-pct', 'children'),
+     Output('uw-downtime-max', 'children'),
+     Output('uw-downtime-avg', 'children'),
+     Output('uw-downtime-median', 'children'),
+     Output('uw-duration', 'children'),
+     Output('uw-cooldown', 'children'),
+     Output('uw-gc-effect', 'children'),
+     Output('uw-gc-rarity', 'children'),
+     Output('uw-mode-display', 'children'),
+     Output('uw-boss-interval-display', 'children'),
+     Output('uw-lab-package-display', 'children'),
+     Output('uw-perks-display', 'children'),
+     Output('uw-duration-card', 'style'),
+     Output('uw-cooldown-card', 'style')],
+    [Input('uw-permanence-selector', 'value'),
+     Input('planner-components-store', 'data'),
+     Input('generator-module-rarity', 'value'),
+     Input('game-mode-selector', 'value'),
+     Input('boss-wave-interval-selector', 'value'),
+     Input('lab-package-after-boss-toggle', 'value')]
+)
+def update_uw_permanence_cards(uw_key, components_data, generator_rarity, game_mode, boss_interval, lab_package_toggle):
+    """Update UW permanence cards based on selected UW and stored planner components."""
+    # Define UW colors matching the planner section
+    uw_colors = {
+        'black_hole': '#9933FF',  # Purple
+        'golden_tower': '#FF6600',  # Orange
+        'chrono_field': '#00FFFF',  # Cyan (Spotlight color)
+        'death_wave': '#FF0000',  # Red
+    }
+    
+    uw_color = uw_colors.get(uw_key, '#444')
+    card_style = {'borderLeft': f'4px solid {uw_color}', 'marginBottom': '0.5rem'}
+    
+    if not components_data or not uw_key:
+        return ("-", "", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", card_style, card_style)
+    
+    try:
+        uw_stats = components_data.get('uw_permanence', {}).get(uw_key, {})
+        num_downtime = uw_stats.get('num_downtime', 0)
+        total_downtime_seconds = uw_stats.get('total_downtime_seconds', 0)
+        uptime_pct = uw_stats.get('uptime_pct', 0.0)
+        downtime_stats = uw_stats.get('downtime_stats', {})
+        max_dt = downtime_stats.get('max', 0)
+        avg_dt = downtime_stats.get('avg', 0.0)
+        median_dt = downtime_stats.get('median', 0.0)
+        
+        # Extract duration and cooldown from components data
+        uw_map = {
+            'black_hole': 'black_hole',
+            'golden_tower': 'golden_tower',
+            'chrono_field': 'chrono_field',
+            'death_wave': 'death_wave',
+        }
+        uw_data_key = uw_map.get(uw_key, uw_key)
+        duration = components_data.get('durations', {}).get(uw_data_key, 0)
+        cooldown = components_data.get('cooldowns', {}).get(uw_data_key, 0)
+        
+        # Galaxy Compressor effect based on rarity
+        gc_rarity = generator_rarity or 'Legendary'
+        gc_effects = {
+            'None': 0.0,
+            'Epic': 10.0,
+            'Legendary': 13.0,
+            'Mythic': 17.0,
+            'Ancestral': 20.0
+        }
+        gc_reduction = gc_effects.get(gc_rarity, 13.0)
+        
+        # Mode display
+        mode_display = (game_mode or 'farming').capitalize()
+        
+        # Perks display
+        perks_text = "Perks active" if game_mode == 'farming' else "No perks"
+        
+        # Boss interval display
+        boss_int = boss_interval or 6
+        boss_interval_text = f"Every {boss_int} waves"
+        
+        # Lab package display
+        lab_enabled = 'enabled' in (lab_package_toggle or [])
+        lab_package_text = "Package after boss: enabled" if lab_enabled else "Package after boss: disabled"
+        
+        return (
+            f"{num_downtime}",
+            f"({total_downtime_seconds}s total)",
+            f"{uptime_pct:.1f}%",
+            f"{max_dt}",
+            f"{avg_dt:.1f}",
+            f"{median_dt:.1f}",
+            f"{duration:.1f}",
+            f"{cooldown:.1f}",
+            f"-{gc_reduction:.0f}s per package",
+            f"{gc_rarity}",
+            mode_display,
+            boss_interval_text,
+            lab_package_text,
+            perks_text,
+            card_style,
+            card_style,
+        )
+    except Exception:
+        return ("-", "", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", card_style, card_style)
+
+
+@callback(
+    Output('uw-permanence-graph', 'figure'),
+    [Input('uw-permanence-selector', 'value'),
+     Input('planner-components-store', 'data')]
+)
+def update_uw_permanence_graph(uw_key, components_data):
+    """Create graph showing remaining uptime for selected UW."""
+    if not components_data or not uw_key:
+        return go.Figure(layout={'paper_bgcolor':'#000','plot_bgcolor':'#000','annotations':[{'text':'Run override simulation to view','showarrow':False,'x':0.5,'y':0.5,'font':{'color':'#888'}}]})
+    
+    try:
+        # Get the UW series (remaining uptime at each second)
+        uw_series = components_data.get(uw_key, [])
+        if not uw_series:
+            return go.Figure(layout={'paper_bgcolor':'#000','plot_bgcolor':'#000','annotations':[{'text':'No data available','showarrow':False,'x':0.5,'y':0.5,'font':{'color':'#888'}}]})
+        
+        # Create timeline (seconds)
+        timeline = list(range(len(uw_series)))
+        
+        # Create figure with dual y-axes
+        fig = go.Figure()
+        
+        # Define UW colors matching the planner section
+        uw_colors = {
+            'black_hole': '#9933FF',  # Purple
+            'golden_tower': '#FF6600',  # Orange
+            'chrono_field': '#00FFFF',  # Cyan (Spotlight color)
+            'death_wave': '#FF0000',  # Red
+        }
+        uw_color = uw_colors.get(uw_key, '#3b82f6')
+        
+        # Add remaining uptime trace (primary y-axis)
+        fig.add_trace(go.Scatter(
+            x=timeline,
+            y=uw_series,
+            name='Remaining Uptime',
+            line=dict(color=uw_color, width=2),
+            yaxis='y'
+        ))
+        
+        # Add package markers (vertical lines at 0 crossings - when UW activates)
+        activations = []
+        for i in range(1, len(uw_series)):
+            if uw_series[i-1] <= 1.0 and uw_series[i] > 1.0:
+                activations.append(i)
+        
+        for act_time in activations:
+            fig.add_vline(
+                x=act_time,
+                line=dict(color='#f97316', width=1, dash='dash'),
+                opacity=0.5
+            )
+        
+        # Highlight short downtimes (≤5s) with red markers
+        short_downtimes = []
+        downtime_start = None
+        for i in range(len(uw_series)):
+            if uw_series[i] <= 1.0 and downtime_start is None:
+                downtime_start = i
+            elif uw_series[i] > 1.0 and downtime_start is not None:
+                downtime_length = i - downtime_start
+                if downtime_length <= 5:
+                    # Mark the midpoint of the short downtime
+                    midpoint = downtime_start + downtime_length // 2
+                    short_downtimes.append((midpoint, downtime_length))
+                downtime_start = None
+        
+        # Add markers for short downtimes
+        if short_downtimes:
+            short_dt_x = [x for x, _ in short_downtimes]
+            short_dt_y = [uw_series[x] if x < len(uw_series) else 0 for x in short_dt_x]
+            short_dt_text = [f'Short downtime: {length}s' for _, length in short_downtimes]
+            fig.add_trace(go.Scatter(
+                x=short_dt_x,
+                y=short_dt_y,
+                mode='markers',
+                name='Short Downtime (≤5s)',
+                marker=dict(color='#ef4444', size=8, symbol='circle'),
+                text=short_dt_text,
+                hovertemplate='%{text}<br>Time: %{x}s<extra></extra>'
+            ))
+        
+        # Map UW key to display name
+        uw_names = {
+            'black_hole': 'Black Hole',
+            'golden_tower': 'Golden Tower',
+            'chrono_field': 'Chrono Field',
+            'death_wave': 'Death Wave'
+        }
+        uw_display_name = uw_names.get(uw_key, uw_key.replace('_', ' ').title())
+        
+        fig.update_layout(
+            title=f"Activity Graph for {uw_display_name}",
+            xaxis_title="Time (s)",
+            paper_bgcolor='#000',
+            plot_bgcolor='#111',
+            font=dict(color='#fff'),
+            hovermode='x unified',
+            showlegend=True,
+            legend=dict(x=0.01, y=0.99, bgcolor='rgba(0,0,0,0.5)'),
+            margin=dict(l=50, r=50, t=50, b=50)
+        )
+        
+        fig.update_xaxes(gridcolor='#333', showgrid=True)
+        fig.update_yaxes(gridcolor='#333', showgrid=True, showticklabels=False, title_text='')
+        
+        return fig
+    except Exception as e:
+        return go.Figure(layout={'paper_bgcolor':'#000','plot_bgcolor':'#000','annotations':[{'text':f'Error: {str(e)}','showarrow':False,'x':0.5,'y':0.5,'font':{'color':'#f97316'}}]})
+
+
+@callback(
+    [Output('multiplier-sim-table', 'figure'),
+     Output('average-multiplier-card', 'children')],
+    [Input('user-json-store', 'data'),
+     Input('game-mode-selector', 'value'),
+     Input('armor-module-selector', 'value'),
+     Input('armor-module-rarity', 'value'),
+     Input('generator-module-selector', 'value'),
+     Input('generator-module-rarity', 'value'),
+     Input('package-chance-slider', 'value'),
+     Input('boss-wave-interval-selector', 'value'),
+     Input('lab-package-after-boss-toggle', 'value')],
+    [State('effective-params-store', 'data')]
+)
+def render_multiplier_sim(user_json_state, game_mode, armor_module, armor_rarity, generator_module, 
+                    generator_rarity, package_chance, boss_interval, lab_boss_package, effective_params):
+    """Render 3600s multiplier simulation with stacked log chart."""
+    try:
+        game_mode = game_mode or 'farming'
+        armor_module = armor_module or 'Primordial Collapse'
+        armor_rarity = armor_rarity or 'Ancestral'
+        generator_module = generator_module or 'Galaxy Compressor'
+        generator_rarity = generator_rarity or 'Legendary'
+        package_chance = float(package_chance or 73)
+
+        boss_interval = int(boss_interval or 10)
+        lab_enabled = 'enabled' in (lab_boss_package or [])
+        
+        df, avg, components = compute_multiplier_simulation(
+            duration_s=3600,
+            game_mode=game_mode,
+            armor_module=armor_module,
+            armor_rarity=armor_rarity,
+            generator_module=generator_module,
+            generator_rarity=generator_rarity,
+            package_chance_pct=package_chance,
+            boss_wave_interval=boss_interval,
+            lab_package_after_boss=lab_enabled,
+            # Use simulator defaults/effective parameters for geometry and timings
+            tower_range=None,
+            bot_range=None,
+            bh_diameter=None,
+            bh_count=None,
+            start_after_first_cooldown=False,
+        )
+        stacked_fig = create_stacked_log_chart(components, avg)
+        cards = create_multiplier_cards(components, avg)
+        return stacked_fig, cards
+    except Exception as e:
+        import traceback
+        return go.Figure(), html.Div([
+            html.Span('Error computing simulation: ', style={'color': '#f97316'}),
+            html.Span(str(e)),
+            html.Details([
+                html.Summary('Show error details'),
+                html.Pre(traceback.format_exc(), style={'fontSize': '0.8rem', 'maxHeight': '200px', 'overflow': 'auto'})
+            ])
+        ])
+
+
+def _serialize_for_store(obj):
+    """Convert numpy-containing objects into JSON-serializable equivalents."""
+    if isinstance(obj, np.ndarray):
+        return obj.tolist()
+    if isinstance(obj, (np.floating, np.integer)):
+        return obj.item()
+    if isinstance(obj, dict):
+        return {k: _serialize_for_store(v) for k, v in obj.items()}
+    if isinstance(obj, (list, tuple)):
+        return [_serialize_for_store(v) for v in obj]
+    return obj
+
+
+def _generate_predefined_package_times(duration_s: int, game_mode: str, package_chance_pct: float) -> list[int]:
+    """Generate package times that align with wave starts in the simulator."""
+    sim = UltimateWeaponSimulator(
+        duration_s=duration_s,
+        game_mode=game_mode,
+        package_chance_pct=float(package_chance_pct),
+        start_after_first_cooldown=False,
+    )
+    wave_starts_exact, wave_starts_int, waves_with_packages = sim._setup_wave_timing()  # noqa: SLF001
+    times = sorted({int(wave_starts_int[w]) for w in waves_with_packages if 0 <= w < len(wave_starts_int)})
+    return times
+
+
+@callback(
+    Output('planner-sim-graph', 'figure'),
+    Output('planner-average-card', 'children'),
+    Output('planner-components-store', 'data'),
+    Output('shared-package-store', 'data'),
+    Input('planner-run-btn', 'n_clicks'),
+    Input('planner-reroll-btn', 'n_clicks'),
+    State('shared-package-store', 'data'),
+    # Current global sim settings
+    State('game-mode-selector', 'value'),
+    State('armor-module-selector', 'value'),
+    State('armor-module-rarity', 'value'),
+    State('generator-module-selector', 'value'),
+    State('generator-module-rarity', 'value'),
+    State('package-chance-slider', 'value'),
+    State('boss-wave-interval-selector', 'value'),
+    State('lab-package-after-boss-toggle', 'value'),
+    # Overrides
+    State('ovr-gb-cd', 'value'),
+    State('ovr-gb-up', 'value'),
+    State('ovr-gb-bonus', 'value'),
+    State('ovr-gb-range', 'value'),
+    State('ovr-dw-cd', 'value'),
+    State('ovr-dw-waves', 'value'),
+    State('ovr-dw-bonus', 'value'),
+    State('ovr-gt-cd', 'value'),
+    State('ovr-gt-up', 'value'),
+    State('ovr-gt-bonus', 'value'),
+    State('ovr-bh-cd', 'value'),
+    State('ovr-bh-up', 'value'),
+    State('ovr-bh-bonus', 'value'),
+    State('ovr-bh-size', 'value'),
+    State('ovr-sp-dmg', 'value'),
+    State('ovr-sp-angle', 'value'),
+    State('ovr-sp-qty', 'value'),
+    State('ovr-cf-cd', 'value'),
+    State('ovr-cf-up', 'value'),
+    State('ovr-package-chance', 'value'),
+    State('ovr-tower-range', 'value'),
+    prevent_initial_call=True,
+)
+def run_override_simulation(
+    run_clicks,
+    reroll_clicks,
+    shared_pkg_data,
+    game_mode,
+    armor_module,
+    armor_rarity,
+    generator_module,
+    generator_rarity,
+    package_chance,
+    boss_interval,
+    lab_boss_package,
+    gb_cd,
+    gb_up,
+    gb_bonus,
+    gb_range,
+    dw_cd,
+    dw_waves,
+    dw_bonus,
+    gt_cd,
+    gt_up,
+    gt_bonus,
+    bh_cd,
+    bh_up,
+    bh_bonus,
+    bh_size,
+    sp_dmg,
+    sp_angle,
+    sp_qty,
+    cf_cd,
+    cf_up,
+    ovr_package_chance,
+    ovr_tower_range,
+):
+    try:
+        if user_data_store.current_path is None:
+            empty_fig = go.Figure(layout={'paper_bgcolor':'#000','plot_bgcolor':'#000','annotations':[{'text':'No userData.json loaded','showarrow':False,'x':0.5,'y':0.5,'font':{'color':'#f97316'}}]})
+            return empty_fig, html.Div("No user data loaded."), {}, shared_pkg_data or {}
+
+        ctx = getattr(dash, 'ctx', None)
+        triggered = getattr(ctx, 'triggered_id', None) if ctx is not None else None
+
+        game_mode = game_mode or 'farming'
+        armor_module = armor_module or 'Primordial Collapse'
+        armor_rarity = armor_rarity or 'Ancestral'
+        generator_module = generator_module or 'Galaxy Compressor'
+        generator_rarity = generator_rarity or 'Legendary'
+        package_chance_effective = float(ovr_package_chance or package_chance or 73)
+        boss_interval = int(boss_interval or 10)
+        lab_enabled = 'enabled' in (lab_boss_package or [])
+
+        tower_range_effective = ovr_tower_range if ovr_tower_range is not None else None
+
+        # Reuse shared package timeline unless rerolled.
+        predefined_package_times = None
+        stored_pkg_chance = None
+        if isinstance(shared_pkg_data, dict):
+            predefined_package_times = shared_pkg_data.get('predefined_package_times')
+            stored_pkg_chance = shared_pkg_data.get('package_chance_pct')
+        pkg_chance_changed = stored_pkg_chance is None or float(stored_pkg_chance) != float(package_chance_effective)
+
+        if triggered == 'planner-reroll-btn' or not predefined_package_times or pkg_chance_changed:
+            predefined_package_times = _generate_predefined_package_times(
+                duration_s=3600,
+                game_mode=game_mode,
+                package_chance_pct=package_chance_effective,
+            )
+        shared_pkg_data = {
+            'predefined_package_times': predefined_package_times,
+            'package_chance_pct': package_chance_effective,
+        }
+
+        df, avg, components = compute_multiplier_simulation(
+            duration_s=3600,
+            game_mode=game_mode,
+            armor_module=armor_module,
+            armor_rarity=armor_rarity,
+            generator_module=generator_module,
+            generator_rarity=generator_rarity,
+            package_chance_pct=package_chance_effective,
+            boss_wave_interval=boss_interval,
+            lab_package_after_boss=lab_enabled,
+            start_after_first_cooldown=False,
+            predefined_package_times=predefined_package_times,
+            tower_range=tower_range_effective,
+            # Overrides
+            gb_cooldown_s=gb_cd,
+            gb_uptime_s=gb_up,
+            gb_bonus_mult=gb_bonus,
+            gb_range_override=gb_range,
+            dw_cooldown_s=dw_cd,
+            dw_waves_count=dw_waves,
+            dw_bonus_mult=dw_bonus,
+            gt_cooldown_s=gt_cd,
+            gt_duration_s=gt_up,
+            gt_bonus_mult=gt_bonus,
+            bh_cooldown_s=bh_cd,
+            bh_duration_s=bh_up,
+            bh_bonus_mult=bh_bonus,
+            bh_size_override=bh_size,
+            sp_damage_mult=sp_dmg,
+            sp_angle_deg=sp_angle,
+            sp_quantity_override=sp_qty,
+            cf_cooldown_s=cf_cd,
+            cf_duration_s=cf_up,
+        )
+
+        fig = create_stacked_log_chart(components, avg)
+        cards = create_multiplier_cards(components, avg)
+        components_store = _serialize_for_store(components)
+        return fig, cards, components_store, shared_pkg_data
+    except Exception as e:
+        import traceback
+        err_fig = go.Figure(layout={'paper_bgcolor':'#000','plot_bgcolor':'#000','annotations':[{'text':f'Error: {str(e)}','showarrow':False,'x':0.5,'y':0.5,'font':{'color':'#f97316'}}]})
+        err_card = html.Div([
+            html.Div('Override simulation failed.', style={'color': '#f97316'}),
+            html.Pre(traceback.format_exc(), style={'fontSize': '0.75rem', 'maxHeight': '220px', 'overflow': 'auto', 'color': '#999'})
+        ])
+        return err_fig, err_card, {}, shared_pkg_data or {}
+
+
+@callback(
+    [Output('ovr-gb-cd', 'value'), Output('ovr-gb-up', 'value'), Output('ovr-gb-bonus', 'value'), Output('ovr-gb-range', 'value'),
+     Output('ovr-dw-cd', 'value'), Output('ovr-dw-waves', 'value'), Output('ovr-dw-bonus', 'value'),
+     Output('ovr-gt-cd', 'value'), Output('ovr-gt-up', 'value'), Output('ovr-gt-bonus', 'value'),
+     Output('ovr-bh-cd', 'value'), Output('ovr-bh-up', 'value'), Output('ovr-bh-bonus', 'value'), Output('ovr-bh-size', 'value'),
+     Output('ovr-sp-dmg', 'value'), Output('ovr-sp-angle', 'value'), Output('ovr-sp-qty', 'value'),
+     Output('ovr-cf-cd', 'value'), Output('ovr-cf-up', 'value'),
+     Output('ovr-package-chance', 'value'), Output('ovr-tower-range', 'value')],
+    [Input('planner-reset-btn', 'n_clicks')],
+    prevent_initial_call=True
+)
+def reset_overrides(n_clicks):
+    """Clear all override inputs to reset to current effective parameters."""
+    # Return default values for all override fields
+    return DEFAULT_OVERRIDE_VALUES
+
+
+
+# New callback: planner activation line
+@callback(
+    Output('planner-activation-line', 'children'),
+    [Input('planner-components-store', 'data')]
+)
+def update_planner_activation_line(components_data):
+    # Show average activation time, or 'Permanent' if 100% uptime
+    if not components_data:
+        return "average activation: --.-s"
+    # Try to get uptime percentage and average activation from components
+    uw_stats = components_data.get('uw_permanence', {})
+    # Aggregate across all UWs, or pick one (e.g., Golden Tower)
+    # For now, show the best (highest uptime) UW
+    best_uw = None
+    best_uptime = 0
+    for uw, stats in uw_stats.items():
+        if stats.get('uptime_pct', 0) > best_uptime:
+            best_uptime = stats.get('uptime_pct', 0)
+            best_uw = uw
+    if best_uw and best_uptime >= 99.9:
+        return "average activation: Permanent"
+    # Otherwise, show average activation time for best UW
+    avg_activation = uw_stats.get(best_uw, {}).get('avg_activation', None)
+    if avg_activation is not None:
+        return f"average activation: {avg_activation:.1f}s"
+    return "average activation: --.-s"

@@ -1,0 +1,304 @@
+"""Shared helper functions for simulation visualizations."""
+
+import numpy as np
+import plotly.graph_objects as go
+from dash import html
+import dash_bootstrap_components as dbc
+
+
+# Color palette (solid, vibrant colors)
+COLOR_GOLDEN_BOT = '#FFD700'  # Gold
+COLOR_DEATH_WAVE = '#FF0000'  # Red
+COLOR_GOLDEN_TOWER = '#FF6600'  # Orange
+COLOR_BLACK_HOLE = '#9933FF'  # Purple
+COLOR_SPOTLIGHT = '#00FFFF'  # Cyan
+COLOR_CHRONO_FIELD = '#00FFFF'  # Cyan (same as Spotlight)
+COLOR_SUMMON_GUARDIAN = '#00FF00'  # Bright green for Summon Guardian
+
+
+def metric_card(title: str, value: str, subtitle: str = "", accent: str = "#6E18FF"):
+    """Create a simple metric card."""
+    return dbc.Card([
+        dbc.CardBody([
+            html.Div(title, className="metric-title"),
+            html.Div(value, className="metric-value"),
+            html.Div(subtitle, className="metric-subtext") if subtitle else html.Div()
+        ])
+    ], className="metric-card", style={"borderLeft": f"4px solid {accent}"})
+
+
+def multiplier_card(title: str, cd: float, uptime_sec: float, multiplier: float, uptime_pct: float, accent: str):
+    """Create a card with cooldown, uptime, multiplier, and effective uptime."""
+    return dbc.Card([
+        dbc.CardBody([
+            html.Div(title, className="metric-title"),
+            html.Div(f"(CD: {cd:.0f}s, Uptime: {uptime_sec:.0f}s)", 
+                     style={'fontSize': '0.8rem', 'color': '#999', 'marginBottom': '0.5rem'}),
+            html.Div(f"{multiplier:.2f}×", className="metric-value", style={'fontWeight': 'bold'}),
+            html.Div(f"Effective uptime: {uptime_pct:.1f}%", className="metric-subtext")
+        ])
+    ], className="metric-card", style={"borderLeft": f"4px solid {accent}"})
+
+
+def create_stacked_log_chart(components, avg):
+    """Create stacked logarithmic chart from simulation components, now including Summon Guardian."""
+    gb = components['golden_bot']
+    sg = components.get('summon_guardian', np.ones_like(gb))  # Default to 1 if not present
+    dw = components['death_wave']
+    gt = components['golden_tower']
+    bh = components['black_hole']
+    sp = components['spotlight']
+    
+    seconds = np.arange(len(gb))
+    eps = 1e-9
+    
+    log_gb = np.log(np.clip(gb, eps, None))
+    log_sg = np.log(np.clip(sg, eps, None))
+    log_dw = np.log(np.clip(dw, eps, None))
+    log_gt = np.log(np.clip(gt, eps, None))
+    log_bh = np.log(np.clip(bh, eps, None))
+    log_sp = np.log(np.clip(sp, eps, None))
+    log_total = log_gb + log_sg + log_dw + log_gt + log_bh + log_sp
+    
+    stacked_fig = go.Figure()
+    # Order bottom to top: Spotlight, Black Hole, Summon Guardian, Golden Bot, Golden Tower, Death Wave
+    stacked_fig.add_trace(go.Bar(name='Spotlight', x=seconds, y=log_sp, marker=dict(color=COLOR_SPOTLIGHT, line=dict(color=COLOR_SPOTLIGHT, width=0)), width=1.0))
+    stacked_fig.add_trace(go.Bar(name='Black Hole', x=seconds, y=log_bh, marker=dict(color=COLOR_BLACK_HOLE, line=dict(color=COLOR_BLACK_HOLE, width=0)), width=1.0))
+    stacked_fig.add_trace(go.Bar(name='Summon Guardian', x=seconds, y=log_sg, marker=dict(color=COLOR_SUMMON_GUARDIAN, line=dict(color=COLOR_SUMMON_GUARDIAN, width=0)), width=1.0))
+    stacked_fig.add_trace(go.Bar(name='Golden Bot', x=seconds, y=log_gb, marker=dict(color=COLOR_GOLDEN_BOT, line=dict(color=COLOR_GOLDEN_BOT, width=0)), width=1.0))
+    stacked_fig.add_trace(go.Bar(name='Golden Tower', x=seconds, y=log_gt, marker=dict(color=COLOR_GOLDEN_TOWER, line=dict(color=COLOR_GOLDEN_TOWER, width=0)), width=1.0))
+    stacked_fig.add_trace(go.Bar(name='Death Wave', x=seconds, y=log_dw, marker=dict(color=COLOR_DEATH_WAVE, line=dict(color=COLOR_DEATH_WAVE, width=0)), width=1.0))
+    
+    stacked_fig.update_layout(
+        barmode='stack',
+        title='Stacked Multipliers (using log decomposition)',
+        xaxis_title='Second',
+        legend=dict(orientation='h', yanchor='bottom', y=1.02, xanchor='right', x=1),
+        plot_bgcolor='#000000',
+        paper_bgcolor='#000000',
+        font=dict(color='#FAFAFA')
+    )
+    
+    # Configure logarithmic y-axis ticks
+    total_multiplier_line = np.exp(log_total)
+    max_mult = float(total_multiplier_line.max()) if len(total_multiplier_line) else 1.0
+    
+    mult_ticks = []
+    power = 0
+    while True:
+        base_val = 10 ** power
+        if base_val <= max_mult * 1.2:
+            mult_ticks.append(base_val)
+        else:
+            break
+        
+        half_val = 5 * base_val
+        if half_val <= max_mult * 1.2:
+            mult_ticks.append(half_val)
+        else:
+            break
+        
+        power += 1
+        if power > 10:
+            break
+    
+    if 1.0 not in mult_ticks:
+        mult_ticks.insert(0, 1.0)
+    if not mult_ticks or mult_ticks[-1] < max_mult:
+        if max_mult > 100:
+            nice_max = round(max_mult / 100) * 100
+        elif max_mult > 10:
+            nice_max = round(max_mult / 10) * 10
+        else:
+            nice_max = round(max_mult, 1)
+        if nice_max not in mult_ticks:
+            mult_ticks.append(nice_max)
+    
+    mult_ticks = sorted(set(mult_ticks))
+    log_ticks = [np.log(max(m, 1e-9)) for m in mult_ticks]
+    tick_text = [f"{m:g}×" for m in mult_ticks]
+    stacked_fig.update_yaxes(title_text='Total Multiplier (stacked via log)', tickmode='array', tickvals=log_ticks, ticktext=tick_text)
+    # Add total multiplier as a line overlay (not stacked)
+    stacked_fig.add_trace(go.Scatter(x=seconds, y=log_total, mode='lines', name='log(Total)', line=dict(color='#FFFFFF', width=1.2)))
+    
+    # Add wave boundaries
+    add_wave_markers(stacked_fig, components, log_ticks)
+    
+    return stacked_fig
+
+
+def add_wave_markers(fig, components, log_ticks):
+    """Add wave start markers and package collection indicators."""
+    package_times = components.get('package_times', [])
+    boss_package_times = components.get('boss_package_times', [])
+    wave_starts = components.get('wave_starts', [])
+    
+    if not isinstance(package_times, list):
+        package_times = []
+    if not isinstance(boss_package_times, list):
+        boss_package_times = []
+    if not isinstance(wave_starts, list):
+        wave_starts = []
+    
+    # Round package times to nearest full second for display (avoid overlapping markers)
+    package_times_rounded = set(int(round(pt)) for pt in package_times)
+    boss_package_times_rounded = set(int(round(pt)) for pt in boss_package_times)
+    y_min = min(log_ticks) if log_ticks else 0
+    y_max = max(log_ticks) if log_ticks else 1
+    
+    for wave_start in wave_starts:
+        wave_start_rounded = int(round(wave_start))
+        has_regular_package = wave_start_rounded in package_times_rounded
+        has_boss_package = wave_start_rounded in boss_package_times_rounded
+        
+        if has_boss_package:
+            # Boss package: marker with white border, no vertical line
+            fig.add_trace(go.Scatter(
+                x=[wave_start_rounded],
+                y=[y_min],
+                mode='markers',
+                marker=dict(symbol='triangle-up', size=10, color='#E91E63', line=dict(color='#FFFFFF', width=1.5)),
+                showlegend=False,
+                hoverinfo='text',
+                hovertext=f'Boss package collected at wave start (t={wave_start_rounded}s)'
+            ))
+        elif has_regular_package:
+            # Regular package: marker with white border, no vertical line
+            fig.add_trace(go.Scatter(
+                x=[wave_start_rounded],
+                y=[y_min],
+                mode='markers',
+                marker=dict(symbol='triangle-up', size=10, color='#1EE2A5', line=dict(color='#FFFFFF', width=1.5)),
+                showlegend=False,
+                hoverinfo='text',
+                hovertext=f'Package collected at wave start (t={wave_start_rounded}s)'
+            ))
+        else:
+            fig.add_shape(
+                type="line",
+                x0=wave_start_rounded, x1=wave_start_rounded,
+                y0=y_min, y1=y_max,
+                line=dict(color="#404040", width=1, dash="dash"),
+                opacity=0.3
+            )
+
+
+def create_multiplier_cards(components, avg):
+    """Create KPI cards for multipliers."""
+    def calc_effective(arr):
+        """Calculate effective multiplier: mean of active (non-1.0) values."""
+        active_mask = arr != 1.0
+        if active_mask.any():
+            return float(np.mean(arr[active_mask]))
+        return 1.0
+    
+    gb = components['golden_bot']
+    dw = components['death_wave']
+    gt = components['golden_tower']
+    bh = components['black_hole']
+    sp = components['spotlight']
+    
+    # The effective multiplier shown on cards should match what's actually used in simulation
+    # (coverage-adjusted values that appear in the arrays during uptime)
+    gb_eff = calc_effective(gb)
+    dw_eff = calc_effective(dw)
+    gt_eff = calc_effective(gt)
+    bh_eff = calc_effective(bh)
+    sp_eff = float(np.mean(sp))
+    
+    cooldowns_data = components.get('cooldowns', {})
+    if isinstance(cooldowns_data, dict):
+        gb_cd = cooldowns_data.get('golden_bot', 0.0)
+        dw_cd = cooldowns_data.get('death_wave', 0.0)
+        gt_cd = cooldowns_data.get('golden_tower', 0.0)
+        bh_cd = cooldowns_data.get('black_hole', 0.0)
+    else:
+        gb_cd = dw_cd = gt_cd = bh_cd = 0.0
+    
+    durations_data = components.get('durations', {})
+    if isinstance(durations_data, dict):
+        gb_dur = durations_data.get('golden_bot', 0.0)
+        dw_dur = durations_data.get('death_wave', 0.0)
+        gt_dur = durations_data.get('golden_tower', 0.0)
+        bh_dur = durations_data.get('black_hole', 0.0)
+    else:
+        gb_dur = dw_dur = gt_dur = bh_dur = 0.0
+    
+    uptimes_data = components.get('uptimes', {})
+    if isinstance(uptimes_data, dict):
+        gb_uptime = uptimes_data.get('golden_bot', 0.0)
+        dw_uptime = uptimes_data.get('death_wave', 0.0)
+        gt_uptime = uptimes_data.get('golden_tower', 0.0)
+        bh_uptime = uptimes_data.get('black_hole', 0.0)
+        sp_uptime = uptimes_data.get('spotlight', 100.0)
+    else:
+        gb_uptime = dw_uptime = gt_uptime = bh_uptime = 0.0
+        sp_uptime = 100.0
+    
+    pkg_chance = components.get('package_chance_pct', 0.0)
+    if isinstance(pkg_chance, np.ndarray):
+        pkg_chance = 0.0
+    
+    sp_coverage = components.get('spotlight_coverage', 0.0)
+    if isinstance(sp_coverage, np.ndarray):
+        sp_coverage = 0.0
+    
+    # Get Chrono Field data
+    cf_cd = cooldowns_data.get('chrono_field', 0.0) if isinstance(cooldowns_data, dict) else 0.0
+    cf_dur = durations_data.get('chrono_field', 0.0) if isinstance(durations_data, dict) else 0.0
+    cf_uptime = uptimes_data.get('chrono_field', 0.0) if isinstance(uptimes_data, dict) else 0.0
+    
+    # Get Boss Wave Interval
+    boss_interval = components.get('boss_wave_interval', 10)
+    
+    # Get Game Mode from components or default to 'farming'
+    game_mode = components.get('game_mode', 'farming')
+    if isinstance(game_mode, str):
+        mode_display = game_mode.capitalize()
+    else:
+        mode_display = 'Farming'
+    
+    cards_container = html.Div([
+        dbc.Row([
+            dbc.Col(metric_card('Average Total', f"{avg:.2f}×", subtitle='Mean over 3600s', accent='#FFFFFF'), width=6),
+            dbc.Col(metric_card('Mode', mode_display, subtitle='No perks' if game_mode == 'tournament' else 'Perks active', accent='#888888'), width=6),
+        ], className="mb-2"),
+        dbc.Row([
+            dbc.Col(multiplier_card('Golden Bot', gb_cd, gb_dur, gb_eff, gb_uptime, COLOR_GOLDEN_BOT), width=6),
+            dbc.Col(multiplier_card('Death Wave', dw_cd, dw_dur, dw_eff, dw_uptime, COLOR_DEATH_WAVE), width=6),
+        ], className="mb-2"),
+        dbc.Row([
+            dbc.Col(multiplier_card('Golden Tower', gt_cd, gt_dur, gt_eff, gt_uptime, COLOR_GOLDEN_TOWER), width=6),
+            dbc.Col(multiplier_card('Black Hole', bh_cd, bh_dur, bh_eff, bh_uptime, COLOR_BLACK_HOLE), width=6),
+        ], className="mb-2"),
+        dbc.Row([
+            dbc.Col(
+                dbc.Card([
+                    dbc.CardBody([
+                        html.Div('Spotlight', className="metric-title"),
+                        html.Div(f"({sp_coverage:.1f}% coverage)", style={'fontSize': '0.8rem', 'color': '#999', 'marginBottom': '0.5rem'}),
+                        html.Div(f"{sp_eff:.2f}×", className="metric-value", style={'fontWeight': 'bold'}),
+                        html.Div(f"Effective uptime: {sp_uptime:.0f}%", className="metric-subtext")
+                    ])
+                ], className="metric-card", style={"borderLeft": f"4px solid {COLOR_SPOTLIGHT}"}),
+                width=6
+            ),
+            dbc.Col(
+                dbc.Card([
+                    dbc.CardBody([
+                        html.Div('Chrono Field', className="metric-title"),
+                        html.Div(f"(CD: {cf_cd:.0f}s, Uptime: {cf_dur:.0f}s)", style={'fontSize': '0.8rem', 'color': '#999', 'marginBottom': '0.5rem'}),
+                        html.Div('No Bonus', className="metric-value", style={'fontWeight': 'bold', 'fontSize': '1.5rem'}),
+                        html.Div(f"Effective uptime: {cf_uptime:.1f}%", className="metric-subtext")
+                    ])
+                ], className="metric-card", style={"borderLeft": f"4px solid {COLOR_CHRONO_FIELD}"}),
+                width=6
+            ),
+        ], className="mb-2"),
+        dbc.Row([
+            dbc.Col(metric_card('Package Chance', f"{pkg_chance:.0f}%", subtitle='Wave collection probability', accent='#1EE2A5'), width=6),
+            dbc.Col(metric_card('Boss Wave Interval', f"Every {boss_interval} waves", subtitle='Package after boss: enabled' if components.get('lab_package_after_boss', False) else 'Package after boss: disabled', accent='#E91E63'), width=6),
+        ], className="mb-2"),
+    ])
+    
+    return cards_container
