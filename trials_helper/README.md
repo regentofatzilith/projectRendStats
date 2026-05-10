@@ -32,12 +32,11 @@ These are helper scripts for various development tasks:
 - **perma_calc.py** - Disabled page (superseded by pages/perma_calc_new.py)
 
 ### Documentation
-- **BOSS_WAVE_FEATURE.md** - Boss wave feature documentation
-- **BOSS_WAVE_UI_GUIDE.md** - Boss wave UI guide
-- **PERMA_CALC_STANDALONE.md** - PermaCalc standalone deployment guide
-- **QUICK_REFERENCE.md** - Package refactoring quick reference
-- **REFACTORING_SUMMARY.md** - Detailed refactoring summary
-- **SIMULATION_REFACTORING.md** - Simulation refactoring documentation
+Most historical/refactoring docs were archived to keep this folder focused on active scripts:
+
+- `docs/archive/trials_helper/`
+
+Examples in the archive include boss-wave notes, phase summaries, refactoring guides, and deployment references.
 
 ## Usage
 
