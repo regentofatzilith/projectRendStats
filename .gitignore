@@ -16,7 +16,8 @@ htmlcov/
 
 # Build outputs and logs
 build/
-dist/
+dist/*
+!dist/*.exe
 *.egg-info/
 *.log
 distribution.zip
