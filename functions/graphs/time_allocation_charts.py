@@ -27,9 +27,9 @@ def run_color(run_type: str, tier: Any) -> str:
     if run_type == "quit":
         palette = ["#f3e8ff", "#d8b4fe", "#c084fc", "#a855f7", "#7e22ce", "#581c87"]
         return palette[tier_num % len(palette)]
-    if run_type == "disco":
+    if run_type in {"disco", "dissonance"}:
         # Dissonance runs: teal/cyan spectrum — distinct from farming grays and tournament red.
-        # Future tweak: shade by subcategory (attack/defense/utility/uw) when disco_type is available.
+        # Future tweak: shade by subcategory (attack/defense/utility/uw) using dissonance_type.
         palette = ["#67e8f9", "#22d3ee", "#06b6d4", "#0891b2", "#0e7490", "#155e75"]
         return palette[tier_num % len(palette)]
     if run_type == "buffer":
@@ -107,6 +107,8 @@ def build_time_allocation_figure(
         )
 
         killed_by = str(seg.get('killed_by', '') or '')
+        dissonance_type = str(seg.get('dissonance_type', '') or '')
+        hover_dissonance_type = run_type == 'dissonance' and bool(dissonance_type)
 
         fig.add_trace(
             go.Bar(
@@ -117,10 +119,11 @@ def build_time_allocation_figure(
                 name=label,
                 legendgroup=label,
                 showlegend=show_legend,
-                customdata=[[run_type, str(tier), start_time_str, finish_time_str, duration_str, format_display_value(coins_val), format_display_value(cells_val), format_display_value(shards_val), format_display_value(waves_val), format_display_value(coins_hour), format_display_value(cells_hour), format_display_value(shards_hour), format_display_value(waves_hour), format_display_value(score), killed_by]],
+                customdata=[[run_type, str(tier), start_time_str, finish_time_str, duration_str, format_display_value(coins_val), format_display_value(cells_val), format_display_value(shards_val), format_display_value(waves_val), format_display_value(coins_hour), format_display_value(cells_hour), format_display_value(shards_hour), format_display_value(waves_hour), format_display_value(score), killed_by, dissonance_type]],
                 hovertemplate=(
                     'Day: %{x}<br>Time: %{customdata[2]} - %{customdata[3]} (Duration %{customdata[4]})'
                     '<br>Type: %{customdata[0]}<br>Tier: %{customdata[1]}'
+                    + ('<br>Dissonance Type: %{customdata[15]}' if hover_dissonance_type else '')
                     + ('<br>Killed By: %{customdata[14]}' if killed_by else '')
                     + '<br>Total - Coins: %{customdata[5]}, Cells: %{customdata[6]}, Shards: %{customdata[7]}, Waves: %{customdata[8]}'
                     '<br>Per Hour - Coins: %{customdata[9]}, Cells: %{customdata[10]}, Shards: %{customdata[11]}, Waves: %{customdata[12]}'

@@ -16,7 +16,6 @@ from functions.analysis import (
     build_maxed_disco_columns,
 )
 from functions.data import build_disco_tier_table, config
-from functions.data.disco_import import NOTE_MARKER_ALIASES
 from functions.ui import warning_banner
 
 
@@ -66,18 +65,6 @@ layout = html.Div([
         ], width=12),
     ], className="mb-2"),
     html.Div(id="dissonance-tier-table"),
-    html.Hr(),
-    html.H2("Identified Dissonance Runs"),
-    html.P([
-        "Identification is based on Run Notes in 'UserData.json'. ",
-        "Dissonance runs are identified at import based on ",
-        html.Strong("\"disco\", \"dissonance\" or \"disso\""),
-        " in the run notes (feature available from 2026-04-07 onwards). ",
-        "The dissonance type is then determined by ",
-        html.Strong("\"attack\", \"defense\", \"utility\", \"uw\" or \"ultimate weapon\""),
-        " also found in the notes.",
-    ]),
-    html.Div(id="dissonance-table"),
 ])
 
 
@@ -96,7 +83,6 @@ _BASE_ECHO_LAB_MULT = 0.005
     Output("dissonance-summary", "children"),
     Output("dissonance-matrix-graph", "children"),
     Output("dissonance-tier-table", "children"),
-    Output("dissonance-table", "children"),
     Input("user-json-store", "data"),
     Input("dissonance-display-mode", "value"),
     Input("dissonance-display-options", "value"),
@@ -107,48 +93,47 @@ _BASE_ECHO_LAB_MULT = 0.005
 )
 
 def update_dissonance(_user_json_state, display_mode, display_option_values, optimize_row_values, optimize_row_ids, lab_select_values, lab_select_ids):
-    # Step 1: disco runs are already tagged run_type='disco' in the datastore at import time.
-    # Step 2: derive disco_type (attack/defense/utility/uw) from the notes column here.
-    # Future tweak: extend NOTE_MARKER_ALIASES in disco_import.py to add more subcategory keywords.
     all_runs_df = user_data_store.cleaned.get("all_runs_time_series_df", pd.DataFrame())
 
     _EMPTY_COLS = ["timestamp", "tier", "wave", "duration", "waves_per_hour", "comment", "disco_type"]
     if all_runs_df is None or all_runs_df.empty or "run_type" not in all_runs_df.columns:
         df = pd.DataFrame(columns=_EMPTY_COLS)
     else:
-        disco_raw = all_runs_df[all_runs_df["run_type"] == "disco"].copy()
-        if disco_raw.empty:
+        dissonance_raw = all_runs_df[all_runs_df["run_type"].astype(str).str.lower() == "dissonance"].copy()
+        if dissonance_raw.empty:
             df = pd.DataFrame(columns=_EMPTY_COLS)
         else:
             # Duration string from real_time (numeric hours in the df).
             df = pd.DataFrame()
-            df["timestamp"] = disco_raw["timestamp"].fillna("").astype(str)
-            df["tier"] = disco_raw["tier"].astype(str)
-            df["wave"] = pd.to_numeric(disco_raw.get("wave", disco_raw.get("waves_per_tier", pd.Series(dtype=float))), errors="coerce").fillna(0).astype(int)
-            df["waves_per_hour"] = pd.to_numeric(disco_raw["waves_per_hour"], errors="coerce")
-            df["duration"] = pd.to_numeric(disco_raw["real_time"], errors="coerce").map(
+            df["timestamp"] = dissonance_raw["timestamp"].fillna("").astype(str)
+            df["tier"] = dissonance_raw["tier"].astype(str)
+            df["wave"] = pd.to_numeric(dissonance_raw.get("wave", dissonance_raw.get("waves_per_tier", pd.Series(dtype=float))), errors="coerce").fillna(0).astype(int)
+            df["waves_per_hour"] = pd.to_numeric(dissonance_raw["waves_per_hour"], errors="coerce")
+            df["duration"] = pd.to_numeric(dissonance_raw["real_time"], errors="coerce").map(
                 lambda x: "" if pd.isna(x) else f"{float(x):.2f}h"
             )
 
-            # Resolve notes column (any of: notes, note, comment).
+            # Preserve notes/comment column for table compatibility, but do not use it for typing.
             _notes_col = next(
-                (c for c in disco_raw.columns
+                (c for c in dissonance_raw.columns
                  if "".join(ch for ch in str(c).lower() if ch.isalnum()) in {"notes", "note", "comment"}),
                 None,
             )
-            df["comment"] = disco_raw[_notes_col].fillna("").astype(str) if _notes_col else ""
+            df["comment"] = dissonance_raw[_notes_col].fillna("").astype(str) if _notes_col else ""
 
-            # Derive disco_type from the notes text using the same aliases as disco_import.py.
-            def _derive_disco_type(note: str) -> str:
-                note_l = str(note).lower()
-                labels = [
-                    f"{label} disco"
-                    for label, aliases in NOTE_MARKER_ALIASES.items()
-                    if any(alias in note_l for alias in aliases)
-                ]
-                return ", ".join(labels)
+            def _normalize_dissonance_type(raw_value: object) -> str:
+                value = str(raw_value or "").strip().lower().replace("_", " ").replace("-", " ")
+                if value in {"attack"}:
+                    return "attack disco"
+                if value in {"defense", "defence"}:
+                    return "defense disco"
+                if value in {"utility"}:
+                    return "utility disco"
+                if value in {"uw", "ultimate weapon", "ultimate weapons"}:
+                    return "uw disco"
+                return ""
 
-            df["disco_type"] = df["comment"].map(_derive_disco_type)
+            df["disco_type"] = dissonance_raw.get("dissonance_type", pd.Series(index=dissonance_raw.index, dtype=object)).map(_normalize_dissonance_type)
             df = df.reset_index(drop=True)
 
     table_df = format_dissonance_for_table(df)
@@ -160,55 +145,9 @@ def update_dissonance(_user_json_state, display_mode, display_option_values, opt
             [],
             html.Div("No subplot data available.", style={"color": "#9ca3af"}),
             html.Div("No tier matrix available.", style={"color": "#9ca3af"}),
-            html.Div("No rows to display.", style={"color": "#9ca3af"}),
         )
 
     summary = summarize_dissonance(table_df)
-    table_display_df = table_df.copy()
-    table_display_df["waves_per_hour"] = pd.to_numeric(
-        table_display_df["waves_per_hour"] if "waves_per_hour" in table_display_df.columns else pd.Series(index=table_display_df.index, dtype=float),
-        errors="coerce",
-    ).map(lambda x: "" if pd.isna(x) else f"{float(x):.2f}")
-    table_display_df["disco_5000_waves"] = pd.to_numeric(
-        table_display_df["disco_5000_waves"] if "disco_5000_waves" in table_display_df.columns else pd.Series(index=table_display_df.index, dtype=float),
-        errors="coerce",
-    ).map(lambda x: "" if pd.isna(x) else f"{float(x):.2f}")
-
-    runs_header_style = {
-        "background": "#1e1b4b",
-        "color": "#c4b5fd",
-        "textAlign": "left",
-        "border": "1px solid #312e81",
-        "padding": "6px 8px",
-        "fontWeight": "600",
-    }
-    runs_cell_style = {
-        "border": "1px solid #2d2b50",
-        "padding": "4px 8px",
-        "color": "#e5e7eb",
-        "fontSize": "0.9rem",
-    }
-    runs_rows = []
-    for i, (_, row) in enumerate(table_display_df.reset_index(drop=True).iterrows()):
-        bg = "#12111f" if i % 2 == 0 else "#1a1830"
-        runs_rows.append(
-            html.Tr([
-                html.Td(str(row.get(col, "")), style={**runs_cell_style, "background": bg})
-                for col in table_display_df.columns
-            ])
-        )
-
-    table = dbc.Table(
-        [
-            html.Thead(html.Tr([html.Th(col, style=runs_header_style) for col in table_display_df.columns])),
-            html.Tbody(runs_rows),
-        ],
-        bordered=False,
-        size="sm",
-        responsive=True,
-        style={"borderCollapse": "collapse", "width": "100%"},
-    )
-
     boost_df = compute_disco_boost_columns(tier_table)
     max_df = build_maxed_disco_columns(tier_table)
     merged = tier_table.merge(
@@ -2259,4 +2198,4 @@ def update_dissonance(_user_json_state, display_mode, display_option_values, opt
         ),
     ])
 
-    return None, summary_cards, matrix_graph, combined_table, table
+    return None, summary_cards, matrix_graph, combined_table
